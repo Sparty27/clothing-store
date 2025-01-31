@@ -14,7 +14,28 @@
 </head>
 
 <body>
-    @yield('content')
+    {{-- @livewire('admin.components.alert') --}}
+
+    <main class="drawer lg:drawer-open relative min-h-screen">
+        <input id="drawer" type="checkbox" class="drawer-toggle">
+        <div class="drawer-content relative">
+            @include('admin.parts.header')
+
+            {{-- <div class="px-2 md:p-6 mt-3">
+                @yield('breadcrumbs')
+            </div> --}}
+
+            <div class="w-full p-2 md:p-6 pb-16 flex flex-col gap-8">
+                @yield('content')
+            </div>
+        </div>
+
+        <div class="drawer-side z-40">
+            @include('admin.parts.sidebar')
+        </div>
+    </main>
+
+    {{-- @livewire('wire-elements-modal') --}}
 </body>
 
 </html>
