@@ -3,10 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\RoleEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Propaganistas\LaravelPhone\Casts\E164PhoneNumberCast;
 
 class User extends Authenticatable
 {
@@ -19,6 +21,9 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'last_name',
+        'role',
+        'phone',
         'email',
         'password',
     ];
@@ -39,6 +44,10 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
+        'phone_verified_at' => 'datetime',
         'email_verified_at' => 'datetime',
+        'role' => RoleEnum::class,
+        'password' => 'hashed',
+        'phone' => E164PhoneNumberCast::class.':UA',
     ];
 }
