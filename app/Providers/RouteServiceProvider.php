@@ -34,7 +34,22 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
+
+        Route::middleware('admin')
+            ->prefix('admin')
+            ->name('admin.')
+            ->group(function () {
+                require base_path('routes/admin.php');
+
+                // if (request()->is('admin*')) {
+                //     app(HandleRequests::class)->setUpdateRoute(function ($handle) {
+                //         return Route::post('/livewire/update', $handle)->middleware('admin');
+                //     });
+                // }
+            });
     }
+
+
 
     /**
      * Configure the rate limiters for the application.
