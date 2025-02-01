@@ -5,11 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dressiety | admin</title>
-    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
     <!-- Connect tailwind + daisyui -->
-    {{-- @vite('resources/admin/scss/app.scss') --}}
-    {{-- @vite('resources/admin/js/app.js') --}}
+    @vite('resources/admin/scss/app.scss')
+    @vite('resources/admin/js/app.js')
 
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
