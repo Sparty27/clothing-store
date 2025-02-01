@@ -16,9 +16,6 @@ class CheckAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        //TODO: clear
-        return $next($request);
-
         if (auth()->user()?->role === RoleEnum::ADMIN) {
             return $next($request);
         }

@@ -1,8 +1,12 @@
 // Fonts
 @import url('https://fonts.bunny.net/css?family=Nunito');
+@import 'remixicon/fonts/remixicon.css';
 
-[x-cloak] { display: none !important; }
+[x-cloak] {
+  display: none !important;
+}
 
+// Tailwind
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

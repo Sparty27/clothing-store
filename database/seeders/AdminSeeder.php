@@ -20,9 +20,10 @@ class AdminSeeder extends Seeder
         User::firstOrCreate([
             'phone' => $phone,
         ], [
+            'email' => 'test@gmail.com',
             'role' => RoleEnum::ADMIN,
             'name' => 'Admin',
-            'password' => 'ClothingAdmin123'
+            'password' => '!Test1234'
         ]);
     }
 }
