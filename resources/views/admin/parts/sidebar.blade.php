@@ -22,6 +22,7 @@
                     </div>
 
                     <div>
+                        {{-- TODO: add counter --}}
                         {{-- @livewire('admin.orders.order-counter') --}}
                     </div>
                 </div>

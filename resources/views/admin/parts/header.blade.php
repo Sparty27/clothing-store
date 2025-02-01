@@ -17,7 +17,7 @@
 
         <div class="dropdown dropdown-end">
             <div class="join">
-                <span  tabindex="0" class="avatar cursor-pointer btn btn-ghost font-bold">Admin</span>
+                <span  tabindex="0" class="shadow-lg border-gray-100 border-1 avatar cursor-pointer btn btn-ghost font-bold">Admin</span>
             </div>
 
             <ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
