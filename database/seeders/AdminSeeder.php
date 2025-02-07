@@ -23,7 +23,7 @@ class AdminSeeder extends Seeder
             'email' => 'test@gmail.com',
             'role' => RoleEnum::ADMIN,
             'name' => 'Admin',
-            'password' => '!Test1234'
+            'password' => 'test123!'
         ]);
     }
 }
