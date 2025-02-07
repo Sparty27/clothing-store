@@ -24,6 +24,7 @@
             {{-- <div class="px-2 md:p-6 mt-3">
                 @yield('breadcrumbs')
             </div> --}}
+            
 
             <div class="w-full p-2 md:p-6 pb-16 flex flex-col gap-8">
                 @yield('content')
