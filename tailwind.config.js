@@ -28,11 +28,22 @@ export default {
         pastelOrange: '#FFD9B3', // Оранжевий
         pastelGreenLight: '#C5E7CF', // Світло-зелений
         pastelRedLight: '#F9D2D2',
+        primary: '#5A72A0'
       },
     },
   },
   plugins: [
     require('daisyui'),
   ],
+  daisyui: {
+    themes: [
+      {
+        light: {
+          ...require("daisyui/src/theming/themes")["light"],
+          "primary": "#5A72A0", // Вкажіть колір primary для теми light
+        },
+      },
+    ],
+  },
 }
 

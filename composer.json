@@ -12,7 +12,9 @@
         "laravel/telescope": "^5.4",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.6",
-        "propaganistas/laravel-phone": "^5.3"
+        "livewire/livewire": "^3.5",
+        "propaganistas/laravel-phone": "^5.3",
+        "wire-elements/modal": "^2.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.14",
