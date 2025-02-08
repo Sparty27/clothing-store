@@ -43,7 +43,7 @@
         </li>
 
         <li>
-            <a href="#" class="flex gap-4 {{ request()->routeIs('admin.categories.*') ? 'active':'' }}">
+            <a href="{{ route('admin.categories.index') }}" class="flex gap-4 {{ request()->routeIs('admin.categories.*') ? 'active':'' }}">
                 <span class="rounded-lg shadow-lg w-8 h-8 bg-base-100 text-black flex justify-center items-center">
                     <i class="ri-list-check"></i>
                 </span>

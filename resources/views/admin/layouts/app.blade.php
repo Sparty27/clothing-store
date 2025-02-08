@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    {{-- @livewire('admin.components.alert') --}}
+    @livewire('admin.components.alert')
 
     <main class="drawer lg:drawer-open relative min-h-screen">
         <input id="drawer" type="checkbox" class="drawer-toggle">
@@ -36,7 +36,7 @@
         </div>
     </main>
 
-    {{-- @livewire('wire-elements-modal') --}}
+    @livewire('wire-elements-modal')
 </body>
 
 </html>
