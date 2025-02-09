@@ -101,7 +101,7 @@
 
                 <ul>
                     <li>
-                        <a href="#" class="flex gap-4 mt-2 {{ request()->routeIs('admin.contacts.*') ? 'active':'' }}">
+                        <a href="{{ route('admin.contacts.index') }}" class="flex gap-4 mt-2 {{ request()->routeIs('admin.contacts.*') ? 'active':'' }}">
                             <span class="rounded-lg shadow-lg w-8 h-8 bg-base-100 text-black flex justify-center items-center">
                                 <i class="ri-contacts-line"></i>
                             </span>

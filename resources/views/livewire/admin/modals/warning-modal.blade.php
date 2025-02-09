@@ -8,7 +8,7 @@
             <i class="ri-arrow-go-back-line"></i>
             Ні
         </button>
-        <button wire:click="confirm" class="btn btn-sm btn-success gap-1">
+        <button wire:click="confirm" class="btn btn-sm btn-success gap-1 text-white">
             Так
         </button>
     </div>
