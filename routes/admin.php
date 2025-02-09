@@ -10,4 +10,6 @@ Route::controller(AdminController::class)->group(function () {
 
 Route::prefix('categories')->name('categories.')->controller(CategoryController::class)->group(function () {
     Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::get('/{category}/edit', 'edit')->name('edit');
 });

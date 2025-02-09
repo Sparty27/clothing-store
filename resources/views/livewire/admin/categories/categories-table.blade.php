@@ -62,17 +62,16 @@
                 </td>
                 <td>
                     <div class="flex gap-2 justify-center">
-                        <a href="#" class="btn btn-sm btn-primary">
-                        {{-- <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-sm btn-primary"> --}}
+                        <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-sm btn-primary">
                             <i class="ri-pencil-line"></i>
                         </a>
 
                         <button class="btn btn-sm btn-error" 
                             wire:click="$dispatch('openModal', { 
-                                component: 'admin.components.delete-modal', 
+                                component: 'admin.modals.delete-modal', 
                                 arguments: { 
                                     subject: 'Видалити категорію?', 
-                                    text: 'Ця дія не зворотня, ви дійсно бажаєте продовжити?', 
+                                    text: 'Ця дія безворотня, ви дійсно бажаєте продовжити?', 
                                     dispatch: 'delete-category', 
                                     modelId: {{ $category->id }} 
                                 } 

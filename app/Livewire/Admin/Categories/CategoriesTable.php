@@ -60,7 +60,7 @@ class CategoriesTable extends Component
             'is_visible' => !$category->is_visible,
         ]);
 
-        $this->dispatch('alert-open', 'Видимість категорії успішно змінено!');
+        $this->dispatch('alert-open', 'Активність категорії успішно змінено!');
     }
 
     #[On('toggle-category-footer-visible')]
@@ -70,7 +70,7 @@ class CategoriesTable extends Component
             'is_footer_visible' => !$category->is_footer_visible,
         ]);
 
-        $this->dispatch('alert-open', 'Видимість категорії у футері успішно змінено!');
+        $this->dispatch('alert-open', 'Активність категорії у футері успішно змінено!');
     }
 
     #[On('delete-category')]
@@ -96,6 +96,6 @@ class CategoriesTable extends Component
 
     public function render()
     {
-        return view('livewire.admin.categories.categories-table', ['categories' => Category::orderBy('priority')->paginate(2)]);
+        return view('livewire.admin.categories.categories-table', ['categories' => Category::orderBy('priority')->paginate(10)]);
     }
 }
