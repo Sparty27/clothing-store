@@ -67,7 +67,7 @@
         </li>
 
         <li>
-            <a href="#" class="flex gap-4 {{ request()->routeIs('admin.users.*') ? 'active':'' }}">
+            <a href="{{ route('admin.users.index') }}" class="flex gap-4 {{ request()->routeIs('admin.users.*') ? 'active':'' }}">
                 <span class="rounded-lg shadow-lg w-8 h-8 bg-base-100 text-black flex justify-center items-center">
                     <i class="ri-user-line"></i>
                 </span>

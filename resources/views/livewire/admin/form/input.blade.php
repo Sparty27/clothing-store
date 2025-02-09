@@ -8,7 +8,9 @@
     @isset ($slot)
         {!! $slot !!}
     @else
-        <input @isset($id) id="{{ $id }}" @endisset type="{{ $type ?? 'text' }}" placeholder="{{ $placeholder ?? 'Type here' }}" wire:model="{{ $model }}" name="{{ $model }}" class="input {{ $size ?? 'input-sm' }} input-bordered w-full @error($model) input-error @enderror" />
+        <input @isset($id) id="{{ $id }}" @endisset type="{{ $type ?? 'text' }}" placeholder="{{ $placeholder ?? 'Type here' }}" 
+            @isset($isLive) wire:model.live="{{ $model }}" @else wire:model="{{ $model }}" @endisset
+            name="{{ $model }}" class="input {{ $size ?? 'input-sm' }} input-bordered w-full @error($model) input-error @enderror" />
     @endisset
     
     @error($model)

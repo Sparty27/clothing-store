@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\RoleEnum;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -50,4 +51,12 @@ class User extends Authenticatable
         'password' => 'hashed',
         'phone' => E164PhoneNumberCast::class.':UA',
     ];
+
+    public function scopeSearchText(Builder $query, $searchText)
+    {
+        $query->where('name', 'like', "%{$searchText}%")
+            ->orWhere('last_name', 'like', "%{$searchText}%")
+            ->orWhere('phone', 'like', "%{$searchText}%")
+            ->orWhere('email', 'like', "%{$searchText}%");
+    }
 }
