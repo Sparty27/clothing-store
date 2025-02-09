@@ -12,7 +12,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('np:update-area')->weeklyOn(5);
+        $schedule->command('np:update-city')->weeklyOn(6);
+        $schedule->command('np:update-warehouse')->weeklyOn(7);
     }
 
     /**
