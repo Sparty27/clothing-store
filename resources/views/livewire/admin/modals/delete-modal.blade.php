@@ -9,7 +9,7 @@
             <i class="ri-arrow-go-back-line"></i>
             Назад
         </button>
-        <button wire:click="delete" class="btn btn-sm btn-error gap-1">
+        <button wire:click="delete" class="btn btn-sm btn-error gap-1 text-white">
             <i class="ri-delete-bin-line"></i>
             Видалити
         </button>

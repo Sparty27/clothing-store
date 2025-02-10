@@ -235,5 +235,15 @@ return [
         'data.description' => 'Опис',
         'data.shortDescription' => 'Короткий опис',
         'data.comment' => 'Коментар',
+        'data.last_name' => 'Прізвище',
+        'data.old_price' => 'Стара Ціна',
+        'data.is_active' => 'Активний',
+        'data.is_discount' => 'Акційний',
+        'data.old_password' => 'Старий пароль',
+        'data.new_password' => 'Новий пароль',
+        'data.poshta_form.selected_city' => 'Місто',
+        'data.poshta_form.selected_warehouse' => 'Відділення',
+        'data.short_description' => 'Короткий опис',
+        'data.category_id' => 'Категорія'
     ],
 ];

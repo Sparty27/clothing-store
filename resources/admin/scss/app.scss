@@ -1,4 +1,18 @@
 @import url('https://fonts.bunny.net/css?family=Nunito');
+@import "quill/dist/quill.snow.css";
+
+.ql-editor {
+  min-height: 150px;
+}
+
+.ql-rounded .ql-toolbar {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+.ql-rounded .ql-container {
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
 
 [x-cloak] {
   display: none !important;

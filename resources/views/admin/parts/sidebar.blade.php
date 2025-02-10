@@ -31,7 +31,7 @@
         </li>
 
         <li>
-            <a href="#" class="flex gap-4 {{ request()->routeIs('admin.products.*') ? 'active':'' }}">
+            <a href="{{ route('admin.products.index') }}" class="flex gap-4 {{ request()->routeIs('admin.products.*') ? 'active':'' }}">
                 <span class="rounded-lg shadow-lg w-8 h-8 bg-base-100 text-black flex justify-center items-center">
                     <i class="ri-inbox-line"></i>
                 </span>
