@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="light">
 <head>
     <meta charset="utf-8">
@@ -16,10 +16,32 @@
     <!-- Scripts -->
     @vite('resources/site/scss/app.scss')
     @vite('resources/site/js/app.js')
+
+    @stack('scripts')
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        @livewire('site.components.header')
+        {{-- @livewire('site.components.alert') --}}
+    
+        {{-- <div class="wrapper">
+            @yield('breadcrumbs')
+        </div> --}}
+    
+        <main class='mx-auto mt-20 pt-2 sm:pt-6 lg:pt-10 px-4 sm:px-10 lg:px-20 container'>
+            @yield('content')
+        </main>
+    
+        {{-- @include('site.parts.confirm-modal') --}}
+        {{-- @livewire('site.modal.confirm-modal')
+        @include('site.parts.search-modal')
+        @include('site.parts.basket-modal') --}}
+        {{-- @include('site.parts.alert') --}}
+        
+        {{-- @include('site.includes.footer') --}}
+
+
+        {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -75,7 +97,7 @@
 
         <main class="">
             @yield('content')
-        </main>
+        </main> --}}
     </div>
 </body>
 </html>

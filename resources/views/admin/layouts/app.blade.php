@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="light">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dressiety | admin</title>
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Connect tailwind + daisyui -->
     @vite('resources/admin/scss/app.scss')
     @vite('resources/admin/js/app.js')
 </head>
-
 <body>
     @livewire('admin.components.alert')
 
@@ -36,5 +36,4 @@
 
     @livewire('wire-elements-modal')
 </body>
-
 </html>

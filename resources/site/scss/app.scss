@@ -1,6 +1,7 @@
-// Fonts
 @import url('https://fonts.bunny.net/css?family=Nunito');
 @import 'remixicon/fonts/remixicon.css';
+@import '@glidejs/glide/dist/css/glide.core.min.css';
+@import '@glidejs/glide/dist/css/glide.theme.min.css';
 
 [x-cloak] {
   display: none !important;
@@ -10,3 +11,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import './variables.scss';
+@import './components/glide.scss';
