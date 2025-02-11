@@ -20,8 +20,10 @@
     "dependencies": {
         "@glidejs/glide": "^3.7.1",
         "@ssumo/quill-resize-module": "^1.0.3",
+        "jquery": "^3.7.1",
         "livewire-sortable": "^1.0.0",
         "quill": "^2.0.3",
-        "remixicon": "^4.6.0"
+        "remixicon": "^4.6.0",
+        "select2": "^4.1.0-rc.0"
     }
 }

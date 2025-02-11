@@ -13,6 +13,10 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <!-- Scripts -->
     @vite('resources/site/scss/app.scss')
     @vite('resources/site/js/app.js')
@@ -98,6 +102,9 @@
         <main class="">
             @yield('content')
         </main> --}}
+
+        @include('site.parts.search-modal')
+        @livewire('wire-elements-modal')
     </div>
 </body>
 </html>
