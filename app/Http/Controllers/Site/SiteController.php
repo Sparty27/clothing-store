@@ -12,10 +12,10 @@ class SiteController extends Controller
 {
     public function index()
     {
-        $categories = Category::visible()->orderPriority()->limit(8)->get();
+        $categories = Category::visible()->orderPriority()->get();
 
         $popularProducts = Cache::remember('popular-products', 3600, function () {   
-            return Product::active()->popular()->inStock()->inRandomOrder()->with('mainPhoto')->limit(10)->get();
+            return Product::active()->popular()->inRandomOrder()->with('mainPhoto')->limit(10)->get();
         });
 
         return view('site.pages.index', compact('categories', 'popularProducts'));

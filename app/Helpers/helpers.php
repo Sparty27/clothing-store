@@ -3,6 +3,13 @@
 // use App\Services\BasketService;
 // use App\Services\Notification\Telegram;
 
+if (!function_exists('clean_trans')) {
+    function clean_trans($key)
+    {
+        return strip_tags(trans($key));
+    }
+}
+
 // if (!function_exists('clean_trans')) {
 //     function clean_trans($key)
 //     {

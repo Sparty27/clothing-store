@@ -103,6 +103,7 @@
             @yield('content')
         </main> --}}
 
+        @livewire('site.components.footer')
         @include('site.parts.search-modal')
         @livewire('wire-elements-modal')
     </div>

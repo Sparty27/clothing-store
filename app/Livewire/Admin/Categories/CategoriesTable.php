@@ -86,6 +86,14 @@ class CategoriesTable extends Component
         if ($model->exists()) {
             $model->delete();
 
+            $categories = Category::orderBy('priority')->get();
+
+            $i = 1;
+            foreach ($categories as $category) {
+                $category->priority = $i++;
+                $category->save();
+            }
+
             $this->dispatch('alert-open', 'Категорію "'.$model->name.'" успішно видалено!');
         }
 
