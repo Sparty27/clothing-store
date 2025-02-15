@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Site\ProductController;
 use App\Http\Controllers\Site\SiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +23,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::controller(SiteController::class)->group(function () {
     Route::get('/', 'index')->name('index');
+});
+
+Route::prefix('/products')->name('products.')->controller(ProductController::class)->group(function() {
+    Route::get('/{product:slug}', 'show')->name('show');
 });

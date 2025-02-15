@@ -1,7 +1,6 @@
 @extends('site.layouts.app')
 
 @section('content')
-
     <div class="glide-hero glide py-10 pb-16 px-9 sm:px-28 xl:h-[550px] shadow-[0px_20px_50px_0px_rgba(26,27,26,0.15)] border-2 rounded-2xl border-opacity-10 border-primary">
         <div class="glide__track" data-glide-el="track">
         <ul class="glide__slides">
@@ -26,7 +25,7 @@
                         </div>
 
                         <div class="flex absolute bottom-0 left-1/2 transform -translate-x-1/2 justify-center xl:translate-x-0 xl:static xl:justify-start">
-                            <button class="btn btn-primary text-xl w-[150px] md:w-[300px] md:h-[60px]">Купити</button>
+                            <a href="{{ route('products.show', $product->slug) }}" class="btn btn-primary text-xl w-[150px] md:w-[300px] md:h-[60px]">Купити</a>
                         </div>
                     </div>
                 </div>

@@ -5,6 +5,8 @@ namespace App\Livewire\Admin\Products;
 use App\Livewire\Forms\Gallery;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductSize;
+use App\Models\Size;
 use App\Traits\QuillEditorImageUpload;
 use Brick\Math\RoundingMode;
 use Brick\Money\Money;
@@ -19,10 +21,11 @@ class ProductForm extends Component
     use QuillEditorImageUpload, WithFileUploads;
     
     public $product;
-    public $initialCount;
     public Gallery $gallery;
     public $isCreated = false;
-
+    
+    public array $initialCounts = [];
+    public array $addSizes = [];
     public $data = [];
 
     public function mount($product)
@@ -30,11 +33,21 @@ class ProductForm extends Component
         if ($product !== null && $product instanceof Product) {
             $this->product = $product;
 
+            foreach ($product->productSizes as $productSize) {
+                $this->addSizes[] = [
+                    'size_id' => $productSize->size_id,
+                    'count' => $productSize->count,
+                ];
+
+                $this->initialCounts[$productSize->id] = $productSize->count;
+            }
+
             $this->isCreated = true;
-            $this->initialCount = $product->count;
         } else {
             $this->isCreated = false;
         }
+
+        // dd($this->addSizes, $this->sizes);
 
         $this->data['name'] = $this->product->name ?? '';
         $this->data['slug'] = $this->product->slug ?? '';
@@ -57,6 +70,12 @@ class ProductForm extends Component
     public function categories()
     {
         return Category::orderPriority()->get();
+    }
+
+    #[Computed()]
+    public function sizes()
+    {
+        return Size::get();
     }
 
     public function generateSlug()
@@ -84,11 +103,28 @@ class ProductForm extends Component
         $this->gallery->renderPhotos($ids);
     }
 
+    public function addSize()
+    {
+        $this->addSizes[] = [
+            'size_id' => $this->sizes[0]->id,
+            'count' => 0,
+        ];
+    }
+
+    public function removeSize($index)
+    {
+        unset($this->addSizes[$index]);
+    }
+
     public function updatedIsDiscount($value)
     {
         if ($value === false) {
             $this->data['old_price'] = 0;
         }
+    }
+
+    public function updatedAddSizes($value, $key)
+    {
     }
 
     public function rules()
@@ -100,13 +136,16 @@ class ProductForm extends Component
             'data.description' => 'nullable|string|max:5000',
             'data.short_description' => 'nullable|string|max:5000',
             'data.category_id' => 'required|exists:categories,id',
-            'data.count' => 'required|integer|min:0|max:999999',
+            // 'data.count' => 'required|integer|min:0|max:999999',
             'data.price' => 'required_with:data.old_price|numeric|regex:/^\d+(\.\d{1,2})?$/|min:1',
             'data.old_price' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/|min:0',
             'data.is_discount' => 'required|boolean',
             // 'data.isDayProduct' => 'required|boolean',
             'data.is_active' => 'required|boolean',
             'data.is_popular' => 'required|boolean',
+            'addSizes' => 'required|array',
+            'addSizes.*.size_id' => 'required|exists:sizes,id|distinct',
+            'addSizes.*.count' => 'required|integer|min:0|max:999999',
         ];
 
         if ($this->data['is_discount'] === true) {
@@ -124,8 +163,8 @@ class ProductForm extends Component
     public function validationAttributes()
     {
         return [
-            'addCharacteristics.*.char_id' => '',
-            'addCharacteristics.*.texts.*' => 'Значення',
+            'addSizes.*.size_id' => '',
+            'addSizes.*.count' => 'Кількість',
             'names.*' => 'Назва',
             'descriptions.*' => 'Опис',
             'shortDescriptions.*' => 'Короткий опис',
@@ -136,6 +175,7 @@ class ProductForm extends Component
     {
         $validated = $this->validate();
 
+        $validatedAddSizes = $validated['addSizes'];
         $validated = $validated['data'];
 
         $validated['price'] = Money::of($validated['price'], 'UAH', roundingMode: RoundingMode::DOWN);
@@ -149,10 +189,14 @@ class ProductForm extends Component
         if ($this->product === null) {
             $this->product = Product::create($validated);
         } else {
-            $validated['count'] = $this->product->count + ((int)$validated['count'] - (int)$this->initialCount);
+            // $validated['count'] = $this->product->count + ((int)$validated['count'] - (int)$this->initialCount);
+
+            $validatedAddSizes = $this->checkCounts($validatedAddSizes);
             
             $this->product->update($validated);
         }
+
+        $this->saveSizes($validatedAddSizes, $this->product);
 
         $this->gallery->store($this->product);
 
@@ -163,6 +207,32 @@ class ProductForm extends Component
         }
 
         return redirect(request()->header('Referer'))->with('alert', $alertText);
+    }
+
+    private function checkCounts(array $validatedAddSizes)
+    {
+        foreach ($validatedAddSizes as $index => $addSize) {
+            $productSize = ProductSize::where('size_id', $addSize['size_id'])->first();
+
+            if ($productSize) {
+                $validatedAddSizes[$index]['count'] = $productSize->count + ($validatedAddSizes[$index]['count'] - $this->initialCounts[$productSize->id]);
+            }
+        }
+
+        return $validatedAddSizes;
+    }
+
+    private function saveSizes(array $sizes, Product $product)
+    {
+        ProductSize::where('product_id', $product->id)->delete();
+    
+        foreach ($sizes as $size) {
+            ProductSize::updateOrCreate([
+                'size_id' => $size['size_id'],
+                'count' => $size['count'],
+                'product_id' => $product->id,
+            ]);
+        }
     }
 
     public function render()

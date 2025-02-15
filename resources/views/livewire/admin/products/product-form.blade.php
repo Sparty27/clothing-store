@@ -90,11 +90,11 @@
                     </div>
         
                     <div class="flex gap-3 w-full">
-                        @include('livewire.admin.form.input', [
+                        {{-- @include('livewire.admin.form.input', [
                             'name' => 'Кількість',
                             'model' => 'data.count',
                             'type' => 'number',
-                        ])
+                        ]) --}}
         
                         @include('livewire.admin.form.input', [
                             'name' => 'Ціна',
@@ -125,6 +125,84 @@
                 ])
             @endif
         </div>
+    @endcomponent
+
+    @component('admin.components.card', [
+        'title' => 'Розміри товару'
+    ])
+        {{-- <div wire:ignore class="">
+            <select class=".js-example-basic-single" id="select2-1">
+                <option value="AL">Alabama</option>
+                <option value="WY">Wyoming</option>
+            </select>
+        </div> --}}
+
+        <div class="overflow-x-auto w-full">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Розмір</th>
+                    <th>Кількість</th>
+                </tr>
+                </thead>
+                <tbody>
+                    @foreach ($addSizes as $index => $addSize)
+                    <tr>
+                        <td class="w-[200px]">
+                            {{-- <div wire:ignore class="w-full h-full">
+                                <select style="width: 100%; height: 100%;" id="select2-{{ $index }}-{{ $addSizes[$index]['size_id'] }}" x-data="select2($el, $wire, @js("addSizes.".$index.".size_id"))" >
+                                    @foreach ($this->sizes as $size)
+                                        <option value="{{ $size->id }}" @if($addSize['size_id'] == $size->id) selected @endif>{{ $size->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div> --}}
+
+                            @include('livewire.admin.form.select2', [
+                                'key' => "addSize-$index-".$addSizes[$index]['size_id'],
+                                'id' => "select2-$index-".$addSizes[$index]['size_id'],
+                                'wireModel' => "addSizes.".$index.".size_id",
+                                'options' => $this->sizes,
+                                'modelValue' => $addSizes[$index]['size_id'],
+                                'index' => $index,
+                                'addSizes' => $addSizes,
+                                'addSize' => $addSize,
+                            ])
+                        </td>
+                        <td>
+                            @include('livewire.admin.form.input', [
+                                'isLive' => true,
+                                'id' => 'addSize-{{ $index }}',
+                                'model' => "addSizes.".$index.".count"
+                            ])
+                        </td>
+                        <td class="max-w-[60px] w-[60px]">
+                            <div class="flex justify-center">
+                                <button type="button" class="btn btn-error" wire:click="removeSize('{{ $index }}')">
+                                    <i class="ri-delete-bin-line ri-lg text-white"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+            <div class="flex justify-center">
+                <button type="button" class="btn btn-success" wire:click="addSize">
+                    <i class="ri-add-circle-line ri-xl text-white"></i>
+                </button>
+            </div>
+        </div>
+
+        {{-- @foreach ($selectedSizes as $index => $selectedSize)
+            <div wire:ignore class="w-full">
+                <select style="width: 100%;" id="select2-{{ $index }}" x-data="select2($el, $wire, @js('selectedSizes.{{ $index }}'))" >
+                    @foreach ($this->sizes as $size)
+                        <option value="{{ $size->id }}" @if($selectedSize == $size->id) selected @endif>{{ $size->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        @endforeach --}}
     @endcomponent
 
     {{-- <div class="p-4  mb-5 shadow-lg border-[1px] border-gray-200 rounded-lg">
@@ -240,3 +318,33 @@
         </button>
     </div>
 </form>
+
+@push('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#FirstOption').select2({
+                placeholder: 'Select an option',
+            });
+
+            $(document).on('change', '#FirstOption', function (e) {
+                @this.set('foo', e.target.value);
+            });
+
+            $(document).on('change', '#SecondOption', function (e) {
+                @this.set('second', e.target.value);
+            });
+
+            $(document).on('change', '#ThirdOption', function (e) {
+                @this.set('third', e.target.value);
+            });
+
+        });
+        document.addEventListener("livewire:load", function (event) {
+            window.livewire.hook('afterDomUpdate', () => {
+                $('#FirstOption, #SecondOption, #ThirdOption').select2({
+                    placeholder: 'Select an option',
+                });
+            });
+        });
+    </script>
+@endpush

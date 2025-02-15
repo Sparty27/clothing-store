@@ -22,9 +22,9 @@ export default defineConfig({
             }
         }
     },
-    resolve: {
+    resolve : {
         alias: {
-            jquery: 'jquery/dist/jquery.js'
+            '$':'jQuery',
         }
-    }
+    },
 });

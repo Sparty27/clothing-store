@@ -1,6 +1,8 @@
 @import url('https://fonts.bunny.net/css?family=Nunito');
 @import "quill/dist/quill.snow.css";
 @import 'remixicon/fonts/remixicon.css';
+@import 'select2/dist/css/select2.min.css';
+
 
 .ql-editor {
   min-height: 150px;
@@ -13,6 +15,15 @@
 .ql-rounded .ql-container {
   border-bottom-left-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
+}
+
+.select2-container, .select2-selection, .selection{ 
+  height: 48px !important;
+}
+
+span.select2-selection {
+  display: flex !important;
+  align-items: center;
 }
 
 [x-cloak] {

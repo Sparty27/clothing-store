@@ -34,7 +34,7 @@ class Product extends Model implements Photoable
         'article',
         'description',
         'short_description',
-        'count',
+        // 'count',
         'price',
         'old_price',
         'is_discount',
@@ -75,6 +75,11 @@ class Product extends Model implements Photoable
         return $this->belongsTo(Category::class);
     }
 
+    public function productSizes()
+    {
+        return $this->hasMany(ProductSize::class);
+    }
+
     // TODO: uncomment this
     // public function baskets(): BelongsToMany
     // {
@@ -112,7 +117,9 @@ class Product extends Model implements Photoable
 
     public function scopeInStock(Builder $builder)
     {
-        return $builder->where('count', '>', 0);
+        return $builder->whereHas('productSizes', function ($query) {
+            $query->where('count', '>', 0);
+        });
     }
 
     public function scopeDayProduct(Builder $builder)

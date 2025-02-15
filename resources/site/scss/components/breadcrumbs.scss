@@ -1,0 +1,24 @@
+.breadcrumbs {
+    ul {
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+        font-size: 14px;
+        flex-wrap: wrap;
+    }
+  
+    li {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+  
+    li:not(:first-child):before {
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-top: 2px solid var(--primary);
+        border-right: 2px solid var(--primary);
+        transform: rotate(45deg);
+    }
+  }

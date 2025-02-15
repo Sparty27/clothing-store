@@ -2,7 +2,6 @@
 @import 'remixicon/fonts/remixicon.css';
 @import '@glidejs/glide/dist/css/glide.core.min.css';
 @import '@glidejs/glide/dist/css/glide.theme.min.css';
-@import 'select2/dist/css/select2.min.css';
 
 [x-cloak] {
   display: none !important;
@@ -16,3 +15,4 @@
 @import './variables.scss';
 @import './components/glide.scss';
 @import './components/search-modal.scss';
+@import './components/breadcrumbs.scss';
