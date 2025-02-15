@@ -203,4 +203,13 @@ class Product extends Model implements Photoable
             },
         );
     }
+
+    protected function isInStock(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->productSizes()->where('count', '>', 0)->exists();
+            },
+        );
+    }
 }

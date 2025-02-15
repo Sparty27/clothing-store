@@ -1,7 +1,5 @@
 <div class="rounded-lg p-6 sm:p-4 shadow-xl border-gray-200 border-[1px] flex flex-col justify-between">
-    <a href="#" class="relative block">
-        {{-- TODO: take back --}}
-        {{-- <a href="{{ route('products.show', $product->slug) }}"> --}}
+    <a href="{{ route('products.show', $product->slug) }}" class="relative block">
         @if ($product->discount_percentage)
             <div class="absolute top-0 right-0">
                 <div class="bg-red-500  p-3 text-white">-{{ $product->discount_percentage }}%</div>
@@ -13,11 +11,18 @@
         </div>
         <div class="w-full">
             <div class="break-words font-bold text-lg line-clamp-2">{{ $product->name }}</div>
-            @if ($product->count > 0)
+            @if ($product->is_in_stock)
                 <span class="text-[#76c267]">{!! clean_trans('global.in_stock') !!}</span>
             @else
                 <span class="text-red-500">{!! clean_trans('global.out_stock') !!}</span>
             @endif
+        </div>
+        <div class="flex gap-1">
+            @foreach ($this->productSizes as $productSize)
+                <div class="text-gray-400 text-xs">
+                    {{ $productSize->size->name }}
+                </div>
+            @endforeach
         </div>
     </a>
     <div>

@@ -214,7 +214,7 @@ class ProductForm extends Component
         foreach ($validatedAddSizes as $index => $addSize) {
             $productSize = ProductSize::where('size_id', $addSize['size_id'])->first();
 
-            if ($productSize) {
+            if ($productSize && isset($this->initialCounts[$productSize->id])) {
                 $validatedAddSizes[$index]['count'] = $productSize->count + ($validatedAddSizes[$index]['count'] - $this->initialCounts[$productSize->id]);
             }
         }

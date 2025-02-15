@@ -5,6 +5,5 @@
 @endsection
 
 @section('content')
-test
-    {{-- @livewire('site.show-product', compact('product')) --}}
+    @livewire('site.show-product', compact('product'))
 @endsection

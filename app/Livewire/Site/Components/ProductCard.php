@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Site\Components;
 
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class ProductCard extends Component
@@ -9,6 +10,12 @@ class ProductCard extends Component
     public $product;
     public $mainPhoto;
 
+    #[Computed()]
+    public function productSizes()
+    {
+        return $this->product->productSizes;
+    }
+    
     // public function addToBasket(Product $product)
     // {
     //     if (basket()->addProduct($product)) {

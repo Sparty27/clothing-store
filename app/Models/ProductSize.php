@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ProductSize extends Model
 {
@@ -16,4 +17,9 @@ class ProductSize extends Model
         'size_id',
         'count',
     ];
+
+    public function size(): HasOne
+    {
+        return $this->hasOne(Size::class, 'id', 'size_id');
+    }
 }

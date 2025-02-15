@@ -32,7 +32,7 @@
             @yield('breadcrumbs')
         </div> --}}
 
-        <main class='mx-auto mt-10 pt-2 sm:pt-6 lg:pt-10 px-4 sm:px-10 lg:px-20 container'>
+        <main class='mx-auto px-4 sm:px-10 lg:px-20 container'>
             <div class="mb-10 mt-3">
                 @yield('breadcrumbs')
             </div>
