@@ -3,21 +3,23 @@
         <div class="lg:max-w-[400px] xl:max-w-[600px] shrink-0">
             <div class="h-[600px] rounded-2xl overflow-hidden flex justify-center items-center relative">
                 @if ($product->discount_percentage)
-                    <div class="absolute top-2 right-2">
+                    <div class="absolute z-20 top-2 right-2">
                         <div class="bg-red-500  p-3 text-white">-{{ $product->discount_percentage }}%</div>
                     </div>
                 @endif
-                <div class="absolute left-6 text-[50px] text-white drop-shadow-lg">
+                <div class="absolute z-20 left-6 text-[50px] text-white drop-shadow-lg">
                     <button type="button" wire:click="selectPreviousPhoto">
                         <i class="ri-arrow-left-wide-fill ri-xl "></i>
                     </button>
                 </div>
-                <div class="absolute right-6 text-[50px] text-white drop-shadow-lg">
+                <div class="absolute z-20 right-6 text-[50px] text-white drop-shadow-lg">
                     <button type="button" wire:click="selectNextPhoto">
                         <i class="ri-arrow-right-wide-fill ri-xl"></i>
                     </button>
                 </div>
-                <img class="object-fit max-h-[600px]" src="{{ $selectedPhoto->public_url ?? asset('img/image-not-found.jpg') }}" alt="{{ $product->name }}" height="600" title="{{ $product->name }}">
+                <figure class="zoom" onmousemove="zoom(event)" style="background-image: url({{ $selectedPhoto->public_url }})">
+                    <img class="object-fit max-h-[600px]" src="{{ $selectedPhoto->public_url ?? asset('img/image-not-found.jpg') }}" alt="{{ $product->name }}" height="600">
+                </figure>
             </div>
             <div class="mx-auto">
                 <div class="flex gap-2 flex-wrap mt-3">
@@ -116,3 +118,17 @@
         @endforeach
     </div>
 </div>
+
+<script>
+    function zoom(e){
+        console.log('test');
+        
+        var zoomer = e.currentTarget;
+        e.offsetX ? offsetX = e.offsetX : offsetX = e.touches[0].pageX
+        e.offsetY ? offsetY = e.offsetY : offsetX = e.touches[0].pageX
+        x = offsetX/zoomer.offsetWidth*100
+        y = offsetY/zoomer.offsetHeight*100
+        zoomer.style.backgroundSize = "200%"; // Збільшений зум
+        zoomer.style.backgroundPosition = x + '% ' + y + '%';
+    }
+</script>

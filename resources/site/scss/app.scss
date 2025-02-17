@@ -16,3 +16,18 @@
 @import './components/glide.scss';
 @import './components/search-modal.scss';
 @import './components/breadcrumbs.scss';
+
+figure.zoom {
+  & img:hover {
+    opacity: 0;
+  }
+  & img {
+    transition: opacity .5s;
+    display: block;
+    width: 100%;
+  }
+  background-position: 50% 50%;
+  position: relative;
+  overflow: hidden;
+  cursor: zoom-in;
+}
