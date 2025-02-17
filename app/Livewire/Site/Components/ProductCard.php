@@ -10,6 +10,11 @@ class ProductCard extends Component
     public $product;
     public $mainPhoto;
 
+    public function mount()
+    {
+        // $this->product->load('productSizes');
+    }
+
     #[Computed()]
     public function productSizes()
     {

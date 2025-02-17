@@ -14,8 +14,8 @@ class SiteController extends Controller
     {
         $categories = Category::visible()->orderPriority()->get();
 
-        $popularProducts = Cache::remember('popular-products', 3600, function () {   
-            return Product::active()->popular()->inRandomOrder()->with('mainPhoto')->limit(10)->get();
+        $popularProducts = Cache::remember('popular-products', 1, function () {   
+            return Product::active()->popular()->inRandomOrder()->with('mainPhoto', 'productSizes', 'productSizes.size')->limit(10)->get();
         });
 
         return view('site.pages.index', compact('categories', 'popularProducts'));

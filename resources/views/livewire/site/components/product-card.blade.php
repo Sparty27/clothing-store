@@ -36,7 +36,7 @@
         </div>
 
         {{-- @if($this->isInBasket($product)) --}}
-            <button class="btn btn-primary w-full" type="button">{!! clean_trans('global.product_in_basket') !!}</button>
+            <a href="{{ route('products.show', $product->slug) }}" class="btn btn-primary w-full">{!! clean_trans('global.product_in_basket') !!}</a>
         {{-- @else
             <button class="button" type="button" wire:click="addToBasket('{{ $product->id }}')">{!! clean_trans('global.to_basket') !!}</button>
         @endif --}}

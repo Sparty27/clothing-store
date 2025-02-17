@@ -97,8 +97,8 @@
         <h2 class="font-bold text-3xl text-center">Популярні товари</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 gap-y-6 mt-6">
-            @foreach ($popularProducts as $product)
-                @livewire('site.components.product-card', ['product' => $product, 'mainPhoto' => $product->mainPhoto])
+            @foreach ($popularProducts as $index => $product)
+                @livewire('site.components.product-card', ['product' => $product, 'mainPhoto' => $product->mainPhoto], key($index))
             @endforeach
         </div>
     </div>

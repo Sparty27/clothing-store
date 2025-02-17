@@ -1,23 +1,23 @@
 <div>
-    <div class="static lg:flex gap-12">
+    <div class="lg:flex gap-12">
         <div class="lg:max-w-[400px] xl:max-w-[600px] shrink-0">
             <div class="h-[600px] rounded-2xl overflow-hidden flex justify-center items-center relative">
                 @if ($product->discount_percentage)
-                    <div class="absolute z-20 top-2 right-2">
+                    <div class="absolute z-10 top-2 right-2">
                         <div class="bg-red-500  p-3 text-white">-{{ $product->discount_percentage }}%</div>
                     </div>
                 @endif
-                <div class="absolute z-20 left-6 text-[50px] text-white drop-shadow-lg">
+                <div class="absolute z-10 left-6 text-[50px] text-white drop-shadow-lg">
                     <button type="button" wire:click="selectPreviousPhoto">
                         <i class="ri-arrow-left-wide-fill ri-xl "></i>
                     </button>
                 </div>
-                <div class="absolute z-20 right-6 text-[50px] text-white drop-shadow-lg">
+                <div class="absolute z-10 right-6 text-[50px] text-white drop-shadow-lg">
                     <button type="button" wire:click="selectNextPhoto">
                         <i class="ri-arrow-right-wide-fill ri-xl"></i>
                     </button>
                 </div>
-                <figure class="zoom" onmousemove="zoom(event)" style="background-image: url({{ $selectedPhoto->public_url }})">
+                <figure class="zoom" onmousemove="zoom(event)" style="background-image: url({{ $selectedPhoto->public_url ?? asset('img/image-not-found.jpg') }})">
                     <img class="object-fit max-h-[600px]" src="{{ $selectedPhoto->public_url ?? asset('img/image-not-found.jpg') }}" alt="{{ $product->name }}" height="600">
                 </figure>
             </div>
@@ -30,7 +30,7 @@
             </div>
         </div>
     
-        <div>
+        <div class="w-full">
             <div>
                 <h1 class="text-[40px]">{{ $product->name }}</h1>
                 <div class="flex gap-5">
@@ -77,7 +77,7 @@
                 @endif
             </div>
         
-            <button type="button" wire:click="addToBasket('{{ $product->id }}')" class="btn btn-primary">
+            <button @click="document.getElementById('my-drawer-4').click()" type="button" wire:click="addToBasket('{{ $product->id }}')" class="btn btn-primary">
                 {{-- {!! clean_trans('global.buy') !!} --}}
                 Купити
             </button>
@@ -113,8 +113,8 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 gap-y-6 mt-6">
-        @foreach ($this->similarProducts as $product)
-            @livewire('site.components.product-card', ['product' => $product, 'mainPhoto' => $product->mainPhoto])
+        @foreach ($this->similarProducts as $index => $product)
+            @livewire('site.components.product-card', ['product' => $product, 'mainPhoto' => $product->mainPhoto], key($index))
         @endforeach
     </div>
 </div>

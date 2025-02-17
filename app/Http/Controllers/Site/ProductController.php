@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function show(Product $product)
     {
-        $product->load('mainPhoto', 'productSizes', 'productSizes.size');
+        $product->load('mainPhoto', 'photos', 'productSizes', 'productSizes.size');
 
         return view('site.pages.show-product', compact('product'));
     }

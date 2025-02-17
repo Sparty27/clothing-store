@@ -80,13 +80,12 @@ class Product extends Model implements Photoable
         return $this->hasMany(ProductSize::class);
     }
 
-    // TODO: uncomment this
-    // public function baskets(): BelongsToMany
-    // {
-    //     return $this->belongsToMany(Basket::class, 'basket_product')
-    //         ->withPivot('count')
-    //         ->withTimestamps();
-    // }
+    public function baskets(): BelongsToMany
+    {
+        return $this->belongsToMany(Basket::class, 'basket_product')
+            ->withPivot('count')
+            ->withTimestamps();
+    }
 
     // public function characteristicProducts(): HasMany
     // {

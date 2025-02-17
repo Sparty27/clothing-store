@@ -36,15 +36,14 @@ class ShowProduct extends Component
         return $this->product->productSizes;
     }
 
-    #[Computed(persist: true)]
+    #[Computed()]
     public function similarProducts()
     {
         return Product::where('category_id', $this->product->category_id)
             ->whereNot('id', $this->product->id)
             ->active()
             ->inStock()
-            ->inRandomOrder()
-            ->with('mainPhoto')
+            ->with(['mainPhoto', 'productSizes', 'productSizes.size'])
             ->limit(4)
             ->get();
     }
@@ -95,6 +94,15 @@ class ShowProduct extends Component
     public function toggleShowDesc()
     {
         $this->showFullDesc = !$this->showFullDesc;
+    }
+
+    public function addToBasket(Product $product)
+    {
+        if (basket()->addProduct($product, $this->selectedSize, 1)) {
+            $this->dispatch('show-basket');
+        }
+
+        $this->dispatch('updated-basket');
     }
 
     public function render()

@@ -25,6 +25,7 @@
 </head>
 <body>
     <div id="app">
+        @livewire('site.components.alert')
         @livewire('site.components.header')
         {{-- @livewire('site.components.alert') --}}
     
