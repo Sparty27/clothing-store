@@ -15,7 +15,7 @@
     </div>
     <div class="search-modal__cards bg-[#FEFEFE]">
         @forelse ($products as $product)
-            <a href="{{ route('index', $product->slug) }}" class="flex rounded-2xl h-12 w-full mt-1 items-center p-5 gap-4 text-lg bg-white shadow">
+            <a href="{{ route('products.show', $product->slug) }}" class="flex rounded-2xl h-12 w-full mt-1 items-center p-5 gap-4 text-lg bg-white shadow">
                 <img src="{{ $product->mainPhoto->public_url ?? asset('img/image-not-found.jpg') }}" alt="{{ $product->name }}" width="38" height="38">
                 <div class="flex items-center text-sm sm:text-lg justify-between w-full">
                     <span class="text-black line-clamp-1 flex-wrap break-words">{{ $product->name }}</span>

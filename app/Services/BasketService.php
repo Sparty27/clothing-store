@@ -49,7 +49,7 @@ class BasketService
 
     public function getBasketProducts()
     {
-        return $this->basket->products;
+        return $this->basket->basketProducts;
     }
 
     public function isInBasket(Product $product): bool

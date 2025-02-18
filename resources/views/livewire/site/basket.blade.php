@@ -1,11 +1,16 @@
 <div class="drawer drawer-end">
     <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
-        <label for="my-drawer-4" class="drawer-button btn-primary cursor-pointer relative">
+        <label for="my-drawer-4" class="drawer-button btn-primary cursor-pointer relative flex items-center mt-1">
             <i class="ri-shopping-basket-line ri-xl text-white"></i>
-            <div class="absolute -top-4 -right-1">
-                {{ $this->basketProductsCount }}
-            </div>
+            {{-- <i class="ri-user-line ri-xl text-white"></i> --}}
+
+
+            @if ($this->basketProductsCount > 0)
+                <div class="absolute -top-4 -right-1">
+                    {{ $this->basketProductsCount }}
+                </div>
+            @endif
         </label>
     </div>
     <div class="drawer-side z-50">
@@ -83,9 +88,9 @@
                     <span class="text-2xl text-primary">{{ $this->total }} грн.</span>
                 </div>
 
-                <div class="mt-3 px-3 text-lg w-full btn btn-primary">
+                <button type="button" class="mt-3 px-3 text-lg w-full btn btn-primary" wire:click="makeOrder">
                     Оформити замовлення
-                </div>
+                </button>
             </div>
         </ul>
     </div>

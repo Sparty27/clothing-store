@@ -19,8 +19,31 @@
             </div>
         </div>
 
-        <div>
+        <div class="flex gap-12 justify-between items-center">
             @livewire('site.basket')
+            <div class="flex gap-3 text-white">
+                @auth
+                    @if(auth()->user()->role === App\Enums\RoleEnum::ADMIN)
+                        <a href="{{ route('admin.index') }}" class="flex items-center gap-1">
+                            <i class="ri-lock-2-line ri-xl"></i>
+                            Адмінка
+                        </a>
+                    @endif
+                @endauth
+                @guest
+                    <a href="{{ route('login') }}" class="flex items-center gap-1">
+                        <i class="ri-user-line ri-xl"></i>
+                        {{-- {!! clean_trans('site_login.login') !!} --}}
+                        Увійти
+                    </a>
+                @endguest
+                @auth
+                    <a href="{{ route('profile.home') }}" class="flex items-center gap-1">
+                        <i class="ri-user-line ri-xl"></i>
+                        {{ auth()->user()?->name }}
+                    </a>
+                @endauth
+            </div>
         </div>
 
             {{-- <button 

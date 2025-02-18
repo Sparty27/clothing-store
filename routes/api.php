@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\NovaPoshtaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+
+Route::controller(NovaPoshtaController::class)->name('novaposhta.')->prefix('novaposhta')->group(function () {
+    Route::get('/cities', 'cities')->name('cities');
+    Route::get('/warehouses', 'warehouses')->name('warehouses');
 });

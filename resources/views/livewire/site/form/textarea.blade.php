@@ -11,9 +11,8 @@
     @isset ($slot)
         {!! $slot !!}
     @else
-        <input @isset($id) id="{{ $id }}" @endisset type="{{ $type ?? 'text' }}" placeholder="{{ $placeholder ?? 'Type here' }}" 
-            @isset($isLive) wire:model.live="{{ $model }}" @else wire:model="{{ $model }}" @endisset
-            name="{{ $model }}" class="input {{ $size ?? 'input-sm' }} input-bordered w-full outline-none hover:outline-none focus:outline-none {{ $class ?? '' }} @error($model) input-error @enderror" />
+        <textarea @isset($id) id="{{ $id }}" @endisset name="{{ $model }}" class="textarea textarea-bordered {{ $class ?? '' }} @error($model) textarea-error @enderror" placeholder="{{ $placeholder ?? 'Type here' }}" 
+            @isset($isLive) wire:model.live="{{ $model }}" @else wire:model="{{ $model }}" @endisset></textarea>
     @endisset
     
     @error($model)

@@ -40,6 +40,6 @@ class BasketProduct extends Model
 
     public function productSize()
     {
-        return $this->hasOne(ProductSize::class, 'product_id', 'product_id')->where('size_id', $this->size_id);
+        return $this->belongsTo(ProductSize::class, 'product_id', 'product_id')->where('size_id', $this->size_id);
     }
 }

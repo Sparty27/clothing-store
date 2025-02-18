@@ -31,12 +31,27 @@ class Basket extends Component
         $basketProducts = $this->basketProducts;
 
         $total = 0;
-
+        
         foreach ($basketProducts as $basketProduct) {
             $total += $basketProduct->product->price->multipliedBy($basketProduct->count)->getAmount()->toFloat();
         }
-
+        
         return $total;
+    }
+    
+    #[On('remove-from-basket')]
+    public function remove($basketProductId)
+    {
+        $basketProduct = BasketProduct::find($basketProductId);
+
+        if ($basketProduct == null) {
+            return;
+        }
+
+        basket()->removeProduct($basketProduct);
+
+        $this->dispatch('updated-basket');
+        $this->dispatch('alert-open', 'Товар видалено з кошика');
     }
 
     public function increment(BasketProduct $product)
@@ -61,35 +76,21 @@ class Basket extends Component
         $this->dispatch('updated-basket-product-count');
     }
 
-    #[On('remove-from-basket')]
-    public function remove($basketProductId)
-    {
-        $basketProduct = BasketProduct::find($basketProductId);
-
-        if ($basketProduct == null) {
-            return;
-        }
-
-        basket()->removeProduct($basketProduct);
-
-        $this->dispatch('updated-basket');
-        $this->dispatch('alert-open', 'Товар видалено з кошика');
-    }
-
     public function makeOrder() 
     {
         $this->resetErrorBag();
 
         foreach ($this->basketProducts as $basketProduct) {
             $product = $basketProduct->product;
+            $productSize = $basketProduct->productSize()->first();
 
-            if ($product->is_active == false || $product->count <= 0) {
+            if ($product->is_active == false || $productSize->count <= 0) {
                 basket()->removeProduct($basketProduct);
 
                 $this->dispatch('alert-open', "Товар {$product->name} недоступний.");
 
                 $this->addError("products.{$basketProduct->id}.available", 'Товар недоступний');
-            } else if ($basketProduct->count > $product->count) {
+            } else if ($basketProduct->count > $productSize->count) {
                 $basketProduct->count = 1;
                 $basketProduct->save();
     

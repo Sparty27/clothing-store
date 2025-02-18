@@ -1,7 +1,7 @@
 @extends('site.layouts.app')
 
 @section('content')
-<div class="flex justify-center items-center min-h-[calc(100vh-64px)]">
+<div class="flex justify-center items-center min-h-[calc(100vh-150px)]">
     <div class="w-[400px] mx-auto shadow-xl rounded px-4 py-6 border-[1px] border-gray-100">
         <div class="card-header">
             <div class="font-bold text-xl">{{ __('Register') }}</div>
@@ -88,10 +88,22 @@
 
                 <div class="row mb-0 mt-6">
                     <div class="col-md-8 offset-md-4">
-                        <button type="submit" class="btn w-full bg-[#2196f3] text-white border-[#2196f3] hover:bg-[#1d88de] hover:border-[#1d88de]">
+                        <button type="submit" class="btn w-full bg-primary text-white border-primary hover:bg-[#516791] hover:border-[#516791]">
                             {{ __('Register') }}
                         </button>
                     </div>
+                </div>
+
+                <div class="flex items-center justify-center w-full mt-6">
+                    <div class="flex items-center w-full">
+                        <div class="flex-1 border-t border-black"></div>
+                        <span class="px-4 text-center">або</span>
+                        <div class="flex-1 border-t border-black"></div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center mt-3">
+                    <a href="{{ route('login') }}" class="text-primary text-sm hover:underline underline-offset-2">Увійти</a>
                 </div>
             </form>
         </div>

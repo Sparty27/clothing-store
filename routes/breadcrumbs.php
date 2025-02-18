@@ -9,19 +9,19 @@ use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
 // Home
-Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('index', function (BreadcrumbTrail $trail) {
     $trail->push('Головна', route('index'));
 });
 
-// Breadcrumbs::for('checkout', function (BreadcrumbTrail $trail) {
-//     $trail->parent('home');
-//     $trail->push('Замовлення', route('orders.checkout'));
-// });
+Breadcrumbs::for('checkout', function (BreadcrumbTrail $trail) {
+    $trail->parent('index');
+    $trail->push('Замовлення', route('orders.checkout'));
+});
 
-// Breadcrumbs::for('profile', function (BreadcrumbTrail $trail) {
-//     $trail->parent('home');
-//     $trail->push('Профіль', route('profile.home'));
-// });
+Breadcrumbs::for('profile', function (BreadcrumbTrail $trail) {
+    $trail->parent('index');
+    $trail->push('Профіль', route('profile.home'));
+});
 
 // Breadcrumbs::for('profile.orders', function (BreadcrumbTrail $trail) {
 //     $trail->parent('profile');
@@ -46,6 +46,6 @@ Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
 // });
 
 Breadcrumbs::for('product', function (BreadcrumbTrail $trail, $product) {
-    $trail->parent('home');
+    $trail->parent('index');
     $trail->push($product->name, route('products.show', $product->slug));
 });
