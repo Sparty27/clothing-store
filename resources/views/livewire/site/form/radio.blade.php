@@ -11,7 +11,7 @@
     @isset ($slot)
         {!! $slot !!}
     @else
-        <div class="flex gap-9">
+        <div class="flex gap-9 {{ $listClass ?? '' }}">
             @foreach($cases as $case)
                 <label class="flex gap-2 cursor-pointer" for="{{ $case->value }}">
                     <input class="radio radio-primary" id="{{ $case->value }}" wire:model.live="{{ $model }}" type="radio" value="{{ $case->value }}">

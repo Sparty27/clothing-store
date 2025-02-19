@@ -1,8 +1,9 @@
 <div class="drawer drawer-end">
     <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
-        <label for="my-drawer-4" class="drawer-button btn-primary cursor-pointer relative flex items-center mt-1">
-            <i class="ri-shopping-basket-line ri-xl text-white"></i>
+        <label for="my-drawer-4" class="drawer-button btn-primary cursor-pointer relative flex items-center">
+            {{-- <i class="ri-shopping-basket-line ri-xl text-white"></i> --}}
+            <i class="ri-shopping-cart-2-line ri-xl text-white"></i>
             {{-- <i class="ri-user-line ri-xl text-white"></i> --}}
 
 

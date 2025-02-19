@@ -9,11 +9,11 @@ class OrderController extends Controller
 {
     public function checkout()
     {
-        return view('site.pages.checkout');
+        return view('site.pages.orders.checkout');
     }
 
-    // public function thank()
-    // {
-    //     return view('site.static-page.thank');
-    // }
+    public function thank()
+    {
+        return view('site.pages.orders.thank');
+    }
 }

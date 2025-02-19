@@ -19,6 +19,7 @@ class OrderProduct extends Model
     protected $fillable = [
         'order_id', 
         'product_id', 
+        'size_id',
         'name',
         'count',
         'price',
@@ -43,6 +44,16 @@ class OrderProduct extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function size(): BelongsTo
+    {
+        return $this->belongsTo(Size::class);
+    }
+
+    public function productSize()
+    {
+        return $this->belongsTo(ProductSize::class, 'product_id', 'product_id')->where('size_id', $this->size_id);
     }
 
     protected function moneyPrice(): Attribute

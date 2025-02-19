@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="">
-        <div class="text-[54px] font-bold flex justify-center">
+        <div class="text-2xl md:text-[36px] font-bold flex justify-center">
             Профіль
         </div>
         <div class="mt-6 rounded-2xl border-gray-100 border-[1px] p-5 shadow-lg">
@@ -30,8 +30,7 @@
                     Дата реєстрації: <span class="font-bold text-primary">{{ $data['created_at'] }}</span>
                 </li>
                 <li class="mt-2">
-                    {{-- TODO: set value --}}
-                    Всього замовлень: <span class="font-bold text-primary">{{ 5 }}</span>
+                    Всього замовлень: <span class="font-bold text-primary">{{ $data['orders_count'] }}</span>
                 </li>
             </ul>
         </div>

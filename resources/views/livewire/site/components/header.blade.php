@@ -1,5 +1,5 @@
 <div class="static top-0 z-10 bg-[#5A72A0] h-20 w-full flex items-center">
-    <div class="mx-auto container px-4 sm:px-10 lg:px-20 justify-between flex items-center">
+    <div class="mx-auto container px-4 sm:px-10 lg:px-20 justify-between gap-2 flex items-center">
         <div class="flex items-center gap-4 md:gap-12">
             <div class="w-[125px] xl:w-[200px]">
                 <a href='{{ route('index') }}' class="">
@@ -19,14 +19,16 @@
             </div>
         </div>
 
-        <div class="flex gap-12 justify-between items-center">
+        <div class="flex gap-3 md:gap-6 lg:gap-12 justify-between items-center">
             @livewire('site.basket')
             <div class="flex gap-3 text-white">
                 @auth
                     @if(auth()->user()->role === App\Enums\RoleEnum::ADMIN)
                         <a href="{{ route('admin.index') }}" class="flex items-center gap-1">
                             <i class="ri-lock-2-line ri-xl"></i>
-                            Адмінка
+                            <span class="max-sm:hidden">
+                                Адмінка
+                            </span>
                         </a>
                     @endif
                 @endauth
@@ -38,12 +40,70 @@
                     </a>
                 @endguest
                 @auth
-                    <a href="{{ route('profile.home') }}" class="flex items-center gap-1">
+                    <a href="{{ route('profile.home') }}" class="flex items-center gap-1 max-lg:hidden">
                         <i class="ri-user-line ri-xl"></i>
-                        {{ auth()->user()?->name }}
+                        <span class="">
+                            {{ auth()->user()?->name }}
+                        </span>
                     </a>
                 @endauth
             </div>
+
+            <div class="drawer drawer-end lg:hidden">
+                <input id="my-drawer-menu" type="checkbox" class="drawer-toggle" />
+                <div class="drawer-content flex items-center">
+                  <!-- Page content here -->
+                  <label for="my-drawer-menu" class="drawer-button swap swap-rotate btn-primary">
+                        <!-- this hidden checkbox controls the state -->
+                        <input type="checkbox" />
+                      
+                        <!-- hamburger icon -->
+                        <i class="ri-menu-line ri-xl swap-off fill-current"></i>
+                      
+                        <!-- close icon -->
+                        <i class="ri-close-line ri-xl swap-on fill-current"></i>
+                  </label>
+                </div>
+                <div class="drawer-side z-[100]">
+                  <label for="my-drawer-menu" aria-label="close sidebar" class="drawer-overlay"></label>
+                  <ul class="menu bg-base-200 text-base-content min-h-full w-80 max-sm:w-screen p-4">
+                    <div class="p-4 flex justify-between items-center border-b-2 border-b-gray-200">
+                        <span class="font-bold text-2xl">Меню</span>
+        
+                        <label for="my-drawer-menu" class="drawer-button btn-primary cursor-pointer">
+                            <i class="ri-close-fill ri-xl text-black text-2xl"></i>
+                        </label>
+                    </div>
+                    <div class="shadow-lg p-3 max-sm:w-full max-h-max w-full rounded-lg border-[1px] border-gray-200 mt-9">
+                        <div class="text-2xl font-bold border-b-2 border-b-gray-200">
+                            Особистий кабінет
+                        </div>
+            
+                        <div class="mt-3 flex flex-col gap-3">
+                            <a href="{{ route('profile.home') }}" class="btn {{ request()->routeIs('profile.home') ? 'btn-primary' : '' }} w-full text-lg">
+                                <i class="ri-user-line"></i>
+                                Профіль
+                            </a>
+                            <a href="{{ route('profile.orders') }}" class="btn {{ request()->routeIs('profile.orders') ? 'btn-primary' : '' }} w-full text-lg">
+                                <i class="ri-shopping-cart-line"></i>
+                                Мої покупки
+                            </a>
+                            <a href="{{ route('profile.settings') }}" class="btn {{ request()->routeIs('profile.settings') ? 'btn-primary' : '' }} w-full text-lg">
+                                <i class="ri-settings-4-line"></i>
+                                Налаштування
+                            </a>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button class="btn w-full text-lg text-red-500">
+                                    <i class="ri-logout-box-line"></i>
+                                    Вийти
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                  </ul>
+                </div>
+              </div>
         </div>
 
             {{-- <button 

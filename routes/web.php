@@ -40,5 +40,5 @@ Route::name('profile.')->controller(HomeController::class)->middleware('auth')->
 
 Route::name('orders.')->controller(OrderController::class)->group(function() {
     Route::get('/checkout', 'checkout')->name('checkout')->middleware('basket.not.empty');
-    // Route::get('/thank', 'thank')->name('thank');
+    Route::get('/thank', 'thank')->name('thank');
 });

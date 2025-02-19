@@ -9,6 +9,7 @@ use App\Enums\PaymentMethodEnum;
 use App\Enums\PaymentStatusEnum;
 use App\Models\Order;
 use App\Services\OrderService;
+use App\Services\Payment\MonobankService;
 use Brick\Math\RoundingMode;
 use Brick\Money\Money;
 use Exception;
@@ -28,7 +29,6 @@ class Checkout extends Component
     public $note;
     public $deliveryMethod = DeliveryMethodEnum::NOVAPOSHTA->value;
     public $paymentMethod = PaymentMethodEnum::MONOBANK->value;
-    // public NovaPoshtaForm $poshtaForm;
     public $selectedCity = null;
     public $selectedWarehouse = null;
 
@@ -66,12 +66,10 @@ class Checkout extends Component
         $this->paymentMethod = $order->payment_method->value;
         $this->note = $order->note;
 
-        // if ($order->delivery_method === DeliveryMethodEnum::NOVAPOSHTA) {
-        //     $this->poshtaForm->searchCity = $order->warehouse->city->name;
-        //     $this->poshtaForm->selectedCity = $order->warehouse->city->id;
-        //     $this->poshtaForm->searchWarehouse = $order->warehouse->name;
-        //     $this->poshtaForm->selectedWarehouse = $order->warehouse_id;
-        // }
+        if ($order->delivery_method === DeliveryMethodEnum::NOVAPOSHTA) {
+            $this->selectedCity = $order->warehouse->city->id;
+            $this->selectedWarehouse = $order->warehouse_id;
+        }
     }
 
     #[Computed()]
@@ -157,37 +155,39 @@ class Checkout extends Component
             'paymentMethod' => [Rule::enum(PaymentMethodEnum::class)],
         ];
 
-        // if ($this->deliveryMethod === DeliveryMethodEnum::NOVAPOSHTA->value) {
-        //     $rules['poshtaForm.selectedCity'] = 'required';
-        //     $rules['poshtaForm.selectedWarehouse'] = 'required';
-        // }
+        if ($this->deliveryMethod === DeliveryMethodEnum::NOVAPOSHTA->value) {
+            $rules['selectedCity'] = 'required|exists:cities,id';
+            $rules['selectedWarehouse'] = 'required|exists:warehouses,id';
+        }
 
         return $rules;
     }
 
-    // public function messages()
-    // {
-    //     return [
-    //         'poshtaForm.selectedCity.required' => 'Виберіть місто',
-    //         'poshtaForm.selectedWarehouse.required' => 'Виберіть відділення',
-    //     ];
-    // }
+    public function messages()
+    {
+        return [
+            'selectedCity.required' => 'Виберіть місто',
+            'selectedWarehouse.required' => 'Виберіть відділення',
+        ];
+    }
 
     public function validationAttributes()
     {
         return [
             'name' => 'Імʼя',
+            'selectedCity' => 'Місто',
+            'selectedWarehouse' => 'Відділення',
         ];
     }
 
-    public function save(OrderService $orderService)
+    public function save(OrderService $orderService, MonobankService $monobankService)
     {
         $this->validateBeforeOrder();
 
         $validated = $this->validate();
 
         $data = [
-            // 'warehouse_id' => $validated['poshtaForm']['selectedWarehouse'] ?? null,
+            'warehouse_id' => $validated['selectedWarehouse'] ?? null,
             'user_id' => auth()->user()?->id,
             'status' => OrderStatusEnum::NEW,
             'total' => Money::of($this->total, 'UAH', roundingMode: RoundingMode::DOWN),
@@ -205,19 +205,20 @@ class Checkout extends Component
         foreach ($this->basketProducts as $basketProduct) {
             $products[] = [
                 'product_id' => $basketProduct->product_id,
+                'size_id' => $basketProduct->productSize->size_id,
                 'name' => $basketProduct->product->name,
                 'count' => $basketProduct->count,
                 'price' => $basketProduct->product->price,
             ];
         }
-        
+
         try {
             $order = $orderService->checkout($data, $products);
 
             switch($data['payment_method'])
             {
                 case PaymentMethodEnum::MONOBANK:
-                    // $url = $monobankService->checkout($order);
+                    $url = $monobankService->checkout($order);
                     break;
                 default:
                     $url = route('orders.thank');
@@ -243,14 +244,15 @@ class Checkout extends Component
 
         foreach ($this->basketProducts as $basketProduct) {
             $product = $basketProduct->product;
+            $productSize = $basketProduct->productSize()->first();
 
-            if ($product->is_active == false || $product->count <= 0) {
+            if ($product->is_active == false || $productSize->count <= 0) {
                 basket()->removeProduct($basketProduct);
 
                 $this->dispatch('alert-open', "Товар {$product->name} недоступний.");
 
                 $this->addError("products.{$basketProduct->id}.available", 'Товар недоступний');
-            } else if ($basketProduct->count > $product->count) {
+            } elseif ($basketProduct->count > $productSize->count) {
                 $basketProduct->count = 1;
                 $basketProduct->save();
     

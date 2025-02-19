@@ -1,5 +1,5 @@
-<div class="flex gap-12">
-    <div class="rounded-xl shadow-xl border-gray-100 border-[1px] p-4 w-full max-w-[550px]">
+<div class="flex gap-12 max-lg:block">
+    <div class="rounded-xl shadow-xl border-gray-100 border-[1px] p-4 w-full lg:max-w-[550px]">
         <h3 class="font-bold text-2xl">
             Форма замовлення
         </h3>
@@ -34,6 +34,7 @@
                 'name' => 'Метод доставки',
                 'cases' => \App\Enums\DeliveryMethodEnum::cases(),
                 'icon' => 'ri-truck-line',
+                'listClass' => 'max-sm:flex-wrap max-md:gap-y-3',
             ])
         </div>
 
@@ -83,6 +84,7 @@
                 'name' => 'Метод оплати',
                 'cases' => \App\Enums\PaymentMethodEnum::cases(),
                 'icon' => 'ri-bank-card-line',
+                'listClass' => 'max-sm:flex-wrap max-md:gap-y-3',
             ])
         </div>
 
@@ -95,28 +97,25 @@
             ])
         </div>
 
-
-
-
         <div class="flex justify-center mt-3">
             <button type="button" class="btn btn-primary text-white" wire:click="save" wire:loading.attr="disabled">
-                {{-- {!! clean_trans('site_checkout.confirm_order') !!} --}}
                 Підтвердити замовлення
             </button>
         </div>
     </div>
-    <div class="rounded-xl shadow-xl border-gray-100 border-[1px] p-4 w-full">
+
+    <div class="rounded-xl shadow-xl border-gray-100 border-[1px] p-4 w-full max-lg:mt-12">
         <div class="border-b-2 border-b-gray-200 pb-3 flex justify-between items-center">
-            <div class="text-2xl font-bold">
+            <div class="max-sm:text-lg text-2xl font-bold">
                 Ваше замовлення
             </div>
             <div>
                 <div class="text-md">
                     До сплати:
                 </div>
-                <div>
+                <div class="max-sm:flex max-sm:flex-col max-sm:gap-3">
                     <span class="text-gray-500 line-through text-sm">{{ number_format($this->totalOldPrice, 2, '.', ' ') }} грн</span>
-                    <span class="text-primary text-2xl">{{ number_format($this->total, 2, '.', ' ') }} грн</span>
+                    <span class="text-primary max-sm:text-lg text-2xl w-max">{{ number_format($this->total, 2, '.', ' ') }} грн</span>
                 </div>
             </div>
         </div>
@@ -125,7 +124,7 @@
             <div class="bg-white flex items-center gap-2 mt-3 p-2" wire:key="{{ $basketProduct->id }}">
                 <div class="flex items-center min-w-max w-max">
                     <a href="{{ route('products.show', $basketProduct->product->slug) }}">
-                        <img class="border-primary border-2 rounded-xl overflow-hidden" src="{{ $basketProduct->product->mainPhoto->public_url ?? asset('img/image-not-found.jpg') }}" alt="{{ $basketProduct->product->name }}" width="80" height="80">
+                        <img class="border-primary border-2 rounded-xl overflow-hidden max-sm:w-[50px]" src="{{ $basketProduct->product->mainPhoto->public_url ?? asset('img/image-not-found.jpg') }}" alt="{{ $basketProduct->product->name }}" width="80" height="80">
                     </a>
                 </div>
                 <div class="text-gray-500 w-full max-sm:text-xs">

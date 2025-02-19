@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\ProductSize;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -19,6 +20,7 @@ class OrderService
             foreach($products as $product) {
                 $order->orderProducts()->create([
                     'product_id' => $product['product_id'],
+                    'size_id' => $product['size_id'],
                     'name' => $product['name'],
                     'count' => $product['count'],
                     'price' => $product['price'],
@@ -26,11 +28,11 @@ class OrderService
             }
 
             foreach($products as $product) {
-                $modelProduct = Product::find($product['product_id']);
+                $productSize = ProductSize::where('product_id', $product['product_id'])->where('size_id', $product['size_id'])->first();
     
-                if (($modelProduct->count - $product['count']) >= 0) {
-                    $modelProduct->count -= (int) $product['count'];
-                    $modelProduct->save();
+                if (($productSize->count - $product['count']) >= 0) {
+                    $productSize->count -= (int) $product['count'];
+                    $productSize->save();
                 } else {
                     throw new Exception('Out of stock. Product id: '.$product->id);
                 }
@@ -41,7 +43,7 @@ class OrderService
             DB::commit();
 
             // telegram()->sendOrderedNotification($order);
-            // sms()->sendMessage([$order->phone->formatE164()], "Дякуємо за замовлення на сайті FPVUA.NET. Сума до оплати: ".$data['total']->getAmount()->toFloat());
+            // sms()->sendMessage([$order->phone->formatE164()], "Дякуємо за замовлення на сайті Dressiety. Сума до оплати: ".$data['total']->getAmount()->toFloat());
             
             return $order;
             

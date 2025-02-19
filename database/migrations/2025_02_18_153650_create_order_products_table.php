@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('product_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('size_id')->nullable()->constrained()->nullOnDelete();
             $table->string('name');
             $table->integer('count');
             $table->bigInteger('price');

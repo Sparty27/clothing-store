@@ -134,6 +134,6 @@ class BasketService
 
     public function clear()
     {
-        $this->basket->products()->detach();
+        $this->basket->basketProducts()->delete();
     }
 }

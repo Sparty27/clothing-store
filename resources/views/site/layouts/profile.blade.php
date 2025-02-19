@@ -33,21 +33,21 @@
                 @yield('breadcrumbs')
             </div>
             <div class="flex gap-12">
-                <div class="shadow-lg p-3 max-w-[300px] max-h-max w-full rounded-lg border-[1px] border-gray-100">
+                <div class="shadow-lg p-3 max-w-[300px] max-h-max w-full rounded-lg border-[1px] border-gray-100 max-lg:hidden">
                     <div class="text-2xl font-bold border-b-2 border-b-gray-200">
                         Особистий кабінет
                     </div>
         
                     <div class="mt-3 flex flex-col gap-3">
-                        <a href="" class="btn {{ request()->routeIs('profile.home') ? 'btn-primary' : '' }} w-full text-md">
+                        <a href="{{ route('profile.home') }}" class="btn {{ request()->routeIs('profile.home') ? 'btn-primary' : '' }} w-full text-md">
                             <i class="ri-user-line"></i>
                             Профіль
                         </a>
-                        <a href="" class="btn {{ request()->routeIs('profile.orders') ? 'btn-primary' : '' }} w-full text-md">
+                        <a href="{{ route('profile.orders') }}" class="btn {{ request()->routeIs('profile.orders') ? 'btn-primary' : '' }} w-full text-md">
                             <i class="ri-shopping-cart-line"></i>
                             Мої покупки
                         </a>
-                        <a href="" class="btn {{ request()->routeIs('profile.settings') ? 'btn-primary' : '' }} w-full text-md">
+                        <a href="{{ route('profile.settings') }}" class="btn {{ request()->routeIs('profile.settings') ? 'btn-primary' : '' }} w-full text-md">
                             <i class="ri-settings-4-line"></i>
                             Налаштування
                         </a>

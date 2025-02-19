@@ -23,15 +23,15 @@ Breadcrumbs::for('profile', function (BreadcrumbTrail $trail) {
     $trail->push('Профіль', route('profile.home'));
 });
 
-// Breadcrumbs::for('profile.orders', function (BreadcrumbTrail $trail) {
-//     $trail->parent('profile');
-//     $trail->push('Мої покупки', route('profile.orders'));
-// });
+Breadcrumbs::for('profile.orders', function (BreadcrumbTrail $trail) {
+    $trail->parent('profile');
+    $trail->push('Мої покупки', route('profile.orders'));
+});
 
-// Breadcrumbs::for('profile.settings', function (BreadcrumbTrail $trail) {
-//     $trail->parent('profile');
-//     $trail->push('Налаштування профілю', route('profile.settings'));
-// });
+Breadcrumbs::for('profile.settings', function (BreadcrumbTrail $trail) {
+    $trail->parent('profile');
+    $trail->push('Налаштування профілю', route('profile.settings'));
+});
 
 // Breadcrumbs::for('catalog', function (BreadcrumbTrail $trail) {
 //     $trail->parent('home');
