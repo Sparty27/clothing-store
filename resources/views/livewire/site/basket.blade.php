@@ -1,14 +1,14 @@
 <div class="drawer drawer-end">
     <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
-        <label for="my-drawer-4" class="drawer-button btn-primary cursor-pointer relative flex items-center">
+        <label for="my-drawer-4" class="drawer-button btn-primary cursor-pointer relative flex items-center w-min">
             {{-- <i class="ri-shopping-basket-line ri-xl text-white"></i> --}}
             <i class="ri-shopping-cart-2-line ri-xl text-white"></i>
             {{-- <i class="ri-user-line ri-xl text-white"></i> --}}
 
 
             @if ($this->basketProductsCount > 0)
-                <div class="absolute -top-4 -right-1">
+                <div class="absolute -top-4 -right-1 z-10">
                     {{ $this->basketProductsCount }}
                 </div>
             @endif

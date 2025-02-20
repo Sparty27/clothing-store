@@ -33,17 +33,17 @@ Breadcrumbs::for('profile.settings', function (BreadcrumbTrail $trail) {
     $trail->push('Налаштування профілю', route('profile.settings'));
 });
 
-// Breadcrumbs::for('catalog', function (BreadcrumbTrail $trail) {
-//     $trail->parent('home');
-//     $trail->push('Каталог', route('catalog'));
-// });
+Breadcrumbs::for('catalog', function (BreadcrumbTrail $trail) {
+    $trail->parent('index');
+    $trail->push('Каталог', route('catalog'));
+});
 
-// Breadcrumbs::for('category', function (BreadcrumbTrail $trail, $category) {
-//     $trail->parent('catalog');
-//     if ($category) {
-//         $trail->push($category !== null ? $category->name : 'Категорії', route('catalog', $category));
-//     }
-// });
+Breadcrumbs::for('category', function (BreadcrumbTrail $trail, $category) {
+    $trail->parent('catalog');
+    if ($category) {
+        $trail->push($category !== null ? $category->name : 'Категорії', route('catalog', $category));
+    }
+});
 
 Breadcrumbs::for('product', function (BreadcrumbTrail $trail, $product) {
     $trail->parent('index');

@@ -20,4 +20,14 @@ class SiteController extends Controller
 
         return view('site.pages.index', compact('categories', 'popularProducts'));
     }
+
+    public function catalog(Category $category = null)
+    {
+        return view('site.pages.catalog', compact('category'));
+    }
+
+    public function about()
+    {
+        return view('site.pages.about-us');
+    }
 }

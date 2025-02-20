@@ -22,7 +22,8 @@
             <nav>
               <h6 class="footer-title">Меню</h6>
               <a class="link link-hover" href="{{ route('index') }}">Головна</a>
-              <a class="link link-hover">Про нас</a>
+              <a class="link link-hover" href="{{ route('catalog') }}">Каталог</a>
+              <a class="link link-hover" href="{{ route('about') }}">Про нас</a>
             </nav>
             <div>
                 <nav>

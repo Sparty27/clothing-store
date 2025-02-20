@@ -25,6 +25,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::controller(SiteController::class)->group(function () {
     Route::get('/', 'index')->name('index');
+    Route::get('/about-us', 'about')->name('about');
+    Route::get('/catalog/{category:slug?}', 'catalog')->name('catalog');
 });
 
 Route::prefix('/products')->name('products.')->controller(ProductController::class)->group(function() {

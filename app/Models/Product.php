@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\MoneyCast;
+use App\Enums\SortProduct;
 use App\Models\Interfaces\Photoable;
 use App\Observers\ProductObserver;
 use Brick\Math\BigInteger;
@@ -145,6 +146,31 @@ class Product extends Model implements Photoable
         $query->where('article', 'like', "%{$searchText}%")
             ->orWhere('slug', 'like', "%{$searchText}%")
             ->orWhere('name', 'like', "%{$searchText}%");
+    }
+
+    public function scopeSearchByCategory(Builder $query, Category $category = null): Builder
+    {
+        if ($category) {
+            return $query->where('category_id', $category->id);
+        } else {
+            return $query;
+        }
+    }
+
+    public function scopeFilterBySizes(Builder $query, array $sizes): Builder
+    {
+        return $query->whereHas('productSizes', function ($q) use ($sizes) {
+            $q->whereIn('size_id', $sizes);
+        });
+    }
+
+    public function scopeSort(Builder $query, SortProduct $sort): Builder
+    {
+        $sort = explode('_', $sort->value);
+        $sortCol = $sort[0];
+        $sortDir = $sort[1];
+        
+        return $query->orderBy($sortCol, $sortDir);
     }
 
     protected function oldPrice(): Attribute

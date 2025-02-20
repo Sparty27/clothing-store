@@ -87,7 +87,7 @@
         </div>
 
         <div class="flex justify-center mt-6">
-            <a href="" class="text-xl text-primary underline decoration-primary underline-offset-8">
+            <a href="{{ route('catalog') }}" class="text-xl text-primary underline decoration-primary underline-offset-8">
                 Перейти до каталогу
             </a>
         </div>

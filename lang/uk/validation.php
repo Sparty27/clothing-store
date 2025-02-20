@@ -212,6 +212,8 @@ return [
         'description' => 'Опис',
         'shortDescription' => 'Короткий опис',
         'comment' => 'Коментар',
+        'minPrice' => 'Мінімальна ціна',
+        'maxPrice' => 'Максимальна ціна',
 
         'data.name' => 'Назва',
         'data.lastName' => 'Прізвище',

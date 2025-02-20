@@ -7,26 +7,33 @@
                 </a>
             </div>
 
-            <div class="md:w-[240px] xl:w-[320px] hidden sm:block">
+            <div class="md:w-[240px] xl:w-[320px] hidden md:block">
                 <div data-search-modal-open class="bg-[#FEFEFE] flex justify-between px-4 items-center rounded-xl h-9">
-                    <span>{!! trans('global.search') !!}</span>
+                    <span>Пошук</span>
                     <i class="ri-search-line ri-xl"></i>
                 </div>
             </div>
 
-            <div data-search-modal-open class="sm:hidden flex items-center">
+            <div data-search-modal-open class="md:hidden flex items-center">
                 <i class="ri-search-line ri-xl text-white"></i>
             </div>
         </div>
 
         <div class="flex gap-3 md:gap-6 lg:gap-12 justify-between items-center">
-            @livewire('site.basket')
+            <div class="flex items-center gap-3 min-w-max">
+                <div class="relative">
+                    @livewire('site.basket')
+                </div>
+                <a href="{{ route('catalog') }}">
+                    <i class="ri-menu-search-line ri-xl text-white"></i>
+                </a>
+            </div>
             <div class="flex gap-3 text-white">
                 @auth
                     @if(auth()->user()->role === App\Enums\RoleEnum::ADMIN)
                         <a href="{{ route('admin.index') }}" class="flex items-center gap-1">
                             <i class="ri-lock-2-line ri-xl"></i>
-                            <span class="max-sm:hidden">
+                            <span class="max-md:hidden">
                                 Адмінка
                             </span>
                         </a>
@@ -35,7 +42,6 @@
                 @guest
                     <a href="{{ route('login') }}" class="flex items-center gap-1">
                         <i class="ri-user-line ri-xl"></i>
-                        {{-- {!! clean_trans('site_login.login') !!} --}}
                         Увійти
                     </a>
                 @endguest

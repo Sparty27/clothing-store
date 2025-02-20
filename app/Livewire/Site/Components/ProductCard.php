@@ -9,6 +9,7 @@ class ProductCard extends Component
 {
     public $product;
     public $mainPhoto;
+    public $isSmall = false;
 
     public function mount()
     {
