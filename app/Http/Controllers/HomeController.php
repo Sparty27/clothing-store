@@ -18,7 +18,7 @@ class HomeController extends Controller
         $data = [];
         $user = auth()->user();
         
-        $data['phone'] = $user->phone->formatInternational();
+        $data['phone'] = $user->phone?->formatInternational();
         $data['email'] = $user->email;
         $data['name'] = $user->name;
         $data['last_name'] = $user->last_name;

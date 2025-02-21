@@ -18,11 +18,11 @@
                         <label class="input input-bordered flex items-center gap-2">
                             <i class="ri-user-line"></i>
 
-                            <input id="name" type="text" placeholder="Name" class="grow @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            <input id="name" type="text" placeholder="Імʼя" class="grow @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                         </label>
 
                         @error('name')
-                            <span class="" role="alert">
+                            <span class="invalid-feedback text-sm text-red-500 font-medium" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
@@ -41,7 +41,7 @@
                         </label>
 
                         @error('email')
-                            <span class="invalid-feedback" role="alert">
+                            <span class="invalid-feedback  text-sm text-red-500 font-medium" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
@@ -56,11 +56,11 @@
                         <label class="input input-bordered flex items-center gap-2">
                             <i class="ri-lock-line"></i>
 
-                            <input name="password" id="password" type="password" class="grow" placeholder="Password" @error('passsword') is-invalid @enderror required autocomplete="new-password"/>
+                            <input name="password" id="password" type="password" class="grow" placeholder="Пароль" @error('passsword') is-invalid @enderror required autocomplete="new-password"/>
                         </label>
 
                         @error('password')
-                            <span class="invalid-feedback" role="alert">
+                            <span class="invalid-feedback text-sm text-red-500 font-medium" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
@@ -75,11 +75,11 @@
                         <label class="input input-bordered flex items-center gap-2">
                             <i class="ri-lock-line"></i>
 
-                            <input name="password_confirmation" id="password-confirm" type="password" class="grow" placeholder="Confirm password" @error('passsword_confirmation') is-invalid @enderror required autocomplete="new-password"/>
+                            <input name="password_confirmation" id="password-confirm" type="password" class="grow" placeholder="Підтвердити пароль" @error('passsword_confirmation') is-invalid @enderror required autocomplete="new-password"/>
                         </label>
 
                         @error('password_confirmation')
-                            <span class="invalid-feedback" role="alert">
+                            <span class="invalid-feedback text-sm text-red-500 font-medium" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror

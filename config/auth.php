@@ -112,4 +112,5 @@ return [
 
     'password_timeout' => 10800,
 
+    'max_password_reset_attempts' => env('MAX_PASSWORD_RESET_ATTEMPTS', 3),
 ];

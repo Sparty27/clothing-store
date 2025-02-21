@@ -12,18 +12,18 @@
                 @csrf
 
                 <div class="row mb-3">
-                    <label for="email" class="">{{ __('Email Address') }}</label>
+                    <label for="login" class="">{{ __('Email або телефон') }}</label>
 
                     <div class="col-md-6">
                         {{-- <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus> --}}
                         <label class="input input-bordered flex items-center gap-2">
-                            <i class="ri-mail-line"></i>
+                            <i class="ri-user-line"></i>
 
-                            <input name="email" id="email" type="email" class="grow" placeholder="Email" @error('email') is-invalid @enderror value="{{ old('email') }}" required autocomplete="email" autofocus/>
+                            <input name="login" id="login" type="text" class="grow" placeholder="Email або телефон" @error('login') is-invalid @enderror value="{{ old('login') }}" autocomplete="email" required autofocus/>
                         </label>
 
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
+                        @error('login')
+                            <span class="invalid-feedback text-sm text-red-500 font-medium" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
@@ -38,11 +38,11 @@
                         <label class="input input-bordered flex items-center gap-2">
                             <i class="ri-lock-line"></i>
 
-                            <input name="password" id="password" type="password" class="grow" placeholder="Password" @error('passsword') is-invalid @enderror required autocomplete="current-password"/>
+                            <input name="password" id="password" type="password" class="grow" placeholder="Пароль" @error('passsword') is-invalid @enderror required autocomplete="current-password"/>
                         </label>
 
                         @error('password')
-                            <span class="invalid-feedback" role="alert">
+                            <span class="invalid-feedback text-sm text-red-500 font-medium" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
@@ -67,15 +67,13 @@
                             {{ __('Login') }}
                         </button>
 
-                        @if (Route::has('password.request'))
-                            <a class="btn btn-link" href="{{ route('password.request') }}">
-                                {{ __('Forgot Your Password?') }}
-                            </a>
-                        @endif
+                        <a class="btn btn-link no-underline hover:underline p-0" href="{{ route('password.request') }}">
+                            {{ __('Forgot Your Password?') }}
+                        </a>
                     </div>
                 </div>
 
-                <div class="flex items-center justify-center w-full mt-6">
+                <div class="flex items-center justify-center w-full mt-3">
                     <div class="flex items-center w-full">
                         <div class="flex-1 border-t border-black"></div>
                         <span class="px-4 text-center">або</span>

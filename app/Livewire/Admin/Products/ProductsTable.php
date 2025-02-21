@@ -67,7 +67,6 @@ class ProductsTable extends Component
 
     public function redirectToProduct(Product $product)
     {
-        // TODO: change url
         $this->dispatch('redirect-to-product', url: route('products.show', $product->slug));
     }
     

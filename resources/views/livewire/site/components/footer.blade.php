@@ -14,9 +14,7 @@
             <nav>
                 <h6 class="footer-title">Категорії</h6>
                 @foreach ($footerCategories as $category)
-                    {{-- TODO --}}
-                    <a class="link-hover" href="{{ route('index', $category->slug) }}">{{ $category->name }}</a>
-                    {{-- <a class="link" href="{{ route('catalog', $category->slug) }}">{{ $category->name }}</a> --}}
+                    <a class="link-hover" href="{{ route('catalog', $category->slug) }}">{{ $category->name }}</a>
                 @endforeach
             </nav>
             <nav>
