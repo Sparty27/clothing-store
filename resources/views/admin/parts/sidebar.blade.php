@@ -11,7 +11,7 @@
     <ul class="menu menu-sm lg:menu-md px-4 py-4 gap-2 [&_a.active]:!text-white [&_a.active]:!bg-primary">
 
         <li>
-            <a href="#" class="flex gap-4 {{ request()->routeIs('admin.orders.*') ? 'active':'' }}">
+            <a href="{{ route('admin.orders.index') }}" class="flex gap-4 {{ request()->routeIs('admin.orders.*') ? 'active':'' }}">
                 <span class="rounded-lg shadow-lg w-8 h-8 bg-base-100 text-black flex justify-center items-center flex-shrink-0">
                     <i class="ri-receipt-line"></i>
                 </span>

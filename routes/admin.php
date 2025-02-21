@@ -3,12 +3,18 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(AdminController::class)->group(function () {
     Route::get('/', 'index')->name('index');
+});
+
+Route::prefix('orders')->name('orders.')->controller(OrderController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/{order}/edit', 'edit')->name('edit');
 });
 
 Route::prefix('products')->name('products.')->controller(ProductController::class)->group(function () {
