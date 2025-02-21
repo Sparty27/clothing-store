@@ -10,13 +10,6 @@ if (!function_exists('clean_trans')) {
     }
 }
 
-// if (!function_exists('clean_trans')) {
-//     function clean_trans($key)
-//     {
-//         return strip_tags(trans($key));
-//     }
-// }
-
 if (!function_exists('basket')) {
     function basket()
     {

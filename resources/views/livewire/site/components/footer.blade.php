@@ -8,7 +8,7 @@
                 <p>
                     LNTU Thesis
                     <br />
-                    Demonstrating project
+                    Graduation project
                 </p>
             </aside>
             <nav>

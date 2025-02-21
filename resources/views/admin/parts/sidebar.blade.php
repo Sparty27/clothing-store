@@ -55,18 +55,6 @@
         </li>
 
         <li>
-            <a href="#" class="flex gap-4 {{ request()->routeIs('admin.characteristics.*') ? 'active':'' }}">
-                <span class="rounded-lg shadow-lg w-8 h-8 bg-base-100 text-black flex justify-center items-center">
-                    <i class="ri-list-check-3"></i>
-                </span>
-
-                <span class="flex-1">
-                    Характеристики товару
-                </span>
-            </a>
-        </li>
-
-        <li>
             <a href="{{ route('admin.users.index') }}" class="flex gap-4 {{ request()->routeIs('admin.users.*') ? 'active':'' }}">
                 <span class="rounded-lg shadow-lg w-8 h-8 bg-base-100 text-black flex justify-center items-center">
                     <i class="ri-user-line"></i>
@@ -79,7 +67,7 @@
         </li>
 
         <li>
-            <a href="#" class="flex gap-4">
+            <a href="{{ route('log-viewer::dashboard') }}" class="flex gap-4">
                 <span class="rounded-lg shadow-lg w-8 h-8 bg-base-100 text-black flex justify-center items-center">
                     <i class="ri-news-line"></i>
                 </span>
@@ -108,18 +96,6 @@
 
                             <span class="flex-1">
                                 Контакти
-                            </span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#" class="flex gap-4 mt-2 {{ request()->routeIs('admin.language-lines.*') ? 'active':'' }}">
-                            <span class="rounded-lg shadow-lg w-8 h-8 bg-base-100 text-black flex justify-center items-center">
-                                <i class="ri-earth-line"></i>
-                            </span>
-
-                            <span class="flex-1">
-                                Локалізація сторінок
                             </span>
                         </a>
                     </li>

@@ -55,7 +55,6 @@
                             @csrf
                             <button class="btn w-full text-md text-red-500">
                                 <i class="ri-logout-box-line"></i>
-                                    {{-- {!! clean_trans('global.exit') !!} --}}
                                 Вийти
                             </button>
                         </form>

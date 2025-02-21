@@ -35,7 +35,6 @@
                 <h1 class="text-[40px]">{{ $product->name }}</h1>
                 <div class="flex gap-5">
                     <span class="">
-                        {{-- {!! clean_trans('global.article') !!}: {{ $product->article }} --}}
                         Артикул: {{ $product->article }}
                     </span>
                     <span>
@@ -45,12 +44,10 @@
                 <div class="w-full">
                     @if ($product->is_in_stock)
                         <span class="text-[#76c267]">
-                            {{-- {!! clean_trans('global.in_stock') !!} --}}
                             Є в наявності
                         </span>
                     @else
                         <span class="text-red-500">
-                            {{-- {!! clean_trans('global.out_stock') !!} --}}
                             Немає в наявності
                         </span>
                     @endif
@@ -78,7 +75,6 @@
             </div>
         
             <button @click="document.getElementById('my-drawer-4').click()" type="button" wire:click="addToBasket('{{ $product->id }}')" class="btn btn-primary">
-                {{-- {!! clean_trans('global.buy') !!} --}}
                 Купити
             </button>
     

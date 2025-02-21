@@ -98,6 +98,19 @@
                                     Очистити фільтри
                                 </button>
                             </div>
+
+                            <div class="collapse collapse-arrow join-item border-base-300 border mt-3">
+                                <input type="checkbox" name="my-accordion-1" checked/>
+                                <div class="collapse-title text-base font-medium">Категорії</div>
+                                <div class="collapse-content">
+                                    <select class="select select-bordered w-full max-w-xs" wire:model.live="selectedCategory">
+                                        <option value="null" selected>Всі</option>
+                                        @foreach($this->categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         
                             @if(!empty($this->sizes))
                             <div class="collapse collapse-arrow join-item border-base-300 border mt-3">

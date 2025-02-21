@@ -29,30 +29,6 @@
                         </div>
                     </div>
                 </div>
-
-
-                {{-- <div class="flex-col xl:flex-row flex justify-between gap-7">
-                    <div class="flex flex-col justify-between order-2 xl:order-1">
-                        <div class="flex flex-col xl:block justify-between">
-                            <div class="text-center lg:text-left text-[30px] md:text-[50px] font-bold break-words wrap">
-                                {{ $product->name }}
-                            </div>
-                            <div class="mt-5 sm:mt-3 break-words flex-wrap line-clamp-6">
-                                {!! $product->short_description !!}
-                            </div>
-                        </div>
-                        <div class="mt-5 flex justify-center xl:justify-start">
-                            <button class="btn btn-primary text-xl w-full md:w-[300px] md:h-[60px]">Купити</button>
-                        </div>
-                    </div>
-                    <div class="lg:min-w-[438px] flex justify-center xl:flex-none mt-5 sm:mt-0 order-1 xl:order-2">
-                        <img 
-                          src="{{ $product->mainPhoto->public_url ?? asset('img/image-not-found.jpg') }}" 
-                          alt="popular product" 
-                          class="w-[250px] h-[250px] lg:w-[438px] lg:h-[438px] object-cover"
-                        >
-                    </div>
-                </div> --}}
             </li>
             @endforeach
         </ul>
@@ -78,7 +54,7 @@
         <h2 class="font-bold text-3xl text-center">Категорії</h2>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-6">
             @foreach ($categories as $category)
-                <a href="#" class="w-full h-24 p-3 sm:p-2 flex justify-center items-center text-xl cursor-pointer duration-200 shadow-[20px_10px_30px_0px_rgba(0,0,0,0.1)] border-gray-200 border-[1px] bg-white hover:text-primary hover:border-primary">
+                <a href="{{ route('catalog', $category->slug) }}" class="w-full h-24 p-3 sm:p-2 flex justify-center items-center text-xl cursor-pointer duration-200 shadow-[20px_10px_30px_0px_rgba(0,0,0,0.1)] border-gray-200 border-[1px] bg-white hover:text-primary hover:border-primary">
                     <span class="line-clamp-1 break-words text-wrap">
                         {{ $category->name }}
                     </span>
