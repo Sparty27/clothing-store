@@ -31,3 +31,11 @@ figure.zoom {
   // overflow: hidden;
   cursor: zoom-in;
 }
+
+// .dark img[src="/img/svg/logo.svg"] {
+//   content: url("/img/svg/logo-dark.svg");
+// }
+
+.dark img[src="/img/svg/logo.svg"]{
+  fill: #2d5fbe; /* Новий колір для темної теми */
+}

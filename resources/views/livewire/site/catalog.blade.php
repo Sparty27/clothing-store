@@ -1,7 +1,7 @@
 <div class="flex gap-4">
     <div class="min-w-[300px] max-w-[300px] w-[300px] max-lg:hidden">
         <div>
-            <h2 class="text-2xl font-bold">Фільтри</h2>
+            <h2 class="text-2xl font-bold dark:text-white">Фільтри</h2>
         
             <div>
                 <button wire:click="clearFilters" class="btn btn-primary mt-2 w-full">
@@ -11,7 +11,7 @@
 
             <div class="collapse collapse-arrow join-item border-base-300 border mt-3">
                 <input type="checkbox" name="my-accordion-1" checked/>
-                <div class="collapse-title text-base font-medium">Категорії</div>
+                <div class="collapse-title text-base font-medium dark:text-white">Категорії</div>
                 <div class="collapse-content">
                     <select class="select select-bordered w-full max-w-xs" wire:model.live="selectedCategory">
                         <option value="null" selected>Всі</option>
@@ -25,13 +25,13 @@
             @if(!empty($this->sizes))
             <div class="collapse collapse-arrow join-item border-base-300 border mt-3">
                 <input type="checkbox" name="my-accordion-1" checked/>
-                <div class="collapse-title text-base font-medium">Розміри</div>
+                <div class="collapse-title text-base font-medium dark:text-white">Розміри</div>
                 <div class="collapse-content">
                     <div class="form-control max-h-[300px] overflow-y-scroll">
                         @foreach($this->sizes as $size)
                             <label class="label cursor-pointer">
-                                <span class="label-text">{{ $size->name }}</span>
-                                <input type="checkbox" class="checkbox" value="{{ $size->id }}" wire:model.live="selectedSizes"/>
+                                <span class="label-text dark:text-white">{{ $size->name }}</span>
+                                <input type="checkbox" class="checkbox dark:bg-white" value="{{ $size->id }}" wire:model.live="selectedSizes"/>
                             </label>
                         @endforeach
                     </div>
@@ -41,7 +41,7 @@
         
             <div class="collapse collapse-arrow join-item border-base-300 border mt-3">
                 <input type="checkbox" name="my-accordion-3" checked/>
-                <div class="collapse-title text-base font-medium">Ціна</div>
+                <div class="collapse-title text-base font-medium dark:text-white">Ціна</div>
                 <div class="collapse-content">
                     <div class="flex justify-between items-top gap-4">
                         <label class="form-control">

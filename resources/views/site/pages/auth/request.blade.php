@@ -5,7 +5,7 @@
 <div class="flex justify-center items-center min-h-[calc(100vh-150px)]">
     <div class="w-[450px] mx-auto shadow-xl rounded px-4 py-6 border-[1px] border-gray-100">
         <div class="card-header">
-            <div class="font-bold text-xl">Відновлення пароля</div>
+            <div class="font-bold text-xl dark:text-white">Відновлення пароля</div>
         </div>
 
         <div class="card-body pb-6">
@@ -13,7 +13,7 @@
                 @csrf
 
                 <div class="row mb-3">
-                    <label for="login" class="">{{ __('Email або телефон') }}</label>
+                    <label for="login" class="dark:text-white">{{ __('Email або телефон') }}</label>
 
                     <div class="col-md-6">
                         {{-- <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus> --}}

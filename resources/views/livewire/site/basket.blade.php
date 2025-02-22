@@ -16,7 +16,7 @@
     </div>
     <div class="drawer-side z-50">
         <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
-        <ul class="menu p-0 bg-base-200 min-h-full max-sm:w-screen w-[450px]">
+        <ul class="menu p-0 bg-base-200 min-h-full max-sm:w-screen w-[450px] dark:bg-[#282828] dark:text-white">
             <div class="p-4 flex justify-between items-center border-b-2 border-b-gray-200">
                 <span class="font-bold text-2xl">Кошик</span>
 
@@ -24,7 +24,7 @@
                     <span class="text-md">{{ $this->basketProductsCount }} Товарів</span>
 
                     <label for="my-drawer-4" class="drawer-button btn-primary cursor-pointer">
-                        <i class="ri-close-fill ri-xl text-black text-2xl"></i>
+                        <i class="ri-close-fill ri-xl text-black dark:text-white text-2xl"></i>
                     </label>
                 </div>
             </div>
@@ -32,19 +32,19 @@
             <div class="p-3 flex-col flex grow">
                 <div class="basket__content">
                     @foreach($this->basketProducts as $basketProduct)
-                        <div class="bg-white flex items-center gap-2 mt-3 p-2" wire:key="{{ $basketProduct->id }}">
+                        <div class="bg-white dark:bg-[#3f3f3f] flex items-center gap-2 mt-3 p-2" wire:key="{{ $basketProduct->id }}">
                             <div class="flex items-center min-w-max w-max">
                                 <a href="{{ route('products.show', $basketProduct->product->slug) }}">
                                     <img class="border-primary border-2 rounded-xl overflow-hidden" src="{{ $basketProduct->product->mainPhoto->public_url ?? asset('img/image-not-found.jpg') }}" alt="{{ $basketProduct->product->name }}" width="70" height="70">
                                 </a>
                             </div>
                             <div class="text-gray-500 w-full max-sm:text-xs">
-                                <h3 class="font-bold text-black line-clamp-2">{{ $basketProduct->product->name }}</h3>
+                                <h3 class="font-bold text-black dark:text-primary line-clamp-2">{{ $basketProduct->product->name }}</h3>
                                 <div class="my-1">
-                                    <span class="">Артикул: {{ $basketProduct->product->article }}</span>
+                                    <span class="dark:text-white">Артикул: {{ $basketProduct->product->article }}</span>
                                 </div>
                                 <div class="">
-                                    <span class="">Розмір: <span class="font-bold text-black">{{ $basketProduct->size->name }}</span></span>
+                                    <span class="dark:text-white">Розмір: <span class="font-bold text-black dark:text-primary">{{ $basketProduct->size->name }}</span></span>
                                 </div>
                             </div>
                             <div class="flex flex-col justify-between gap-2">

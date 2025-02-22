@@ -1,5 +1,5 @@
 <div class="flex gap-12 max-lg:block">
-    <div class="rounded-xl shadow-xl border-gray-100 border-[1px] p-4 w-full lg:max-w-[550px]">
+    <div class="rounded-xl shadow-xl border-gray-100 border-[1px] p-4 w-full lg:max-w-[550px] dark:bg-[#282828] dark:border-[#575757] dark:text-white">
         <h3 class="font-bold text-2xl">
             Форма замовлення
         </h3>
@@ -104,7 +104,7 @@
         </div>
     </div>
 
-    <div class="rounded-xl shadow-xl border-gray-100 border-[1px] p-4 w-full max-lg:mt-12">
+    <div class="rounded-xl shadow-xl border-gray-100 border-[1px] p-4 w-full max-lg:mt-12 dark:bg-[#282828] dark:border-[#575757] dark:text-white">
         <div class="border-b-2 border-b-gray-200 pb-3 flex justify-between items-center">
             <div class="max-sm:text-lg text-2xl font-bold">
                 Ваше замовлення
@@ -121,19 +121,19 @@
         </div>
         <div>
             @foreach ($this->basketProducts as $basketProduct)
-            <div class="bg-white flex items-center gap-2 mt-3 p-2" wire:key="{{ $basketProduct->id }}">
+            <div class="bg-white dark:bg-[#3f3f3f] flex items-center gap-2 mt-3 p-2" wire:key="{{ $basketProduct->id }}">
                 <div class="flex items-center min-w-max w-max">
                     <a href="{{ route('products.show', $basketProduct->product->slug) }}">
                         <img class="border-primary border-2 rounded-xl overflow-hidden max-sm:w-[50px]" src="{{ $basketProduct->product->mainPhoto->public_url ?? asset('img/image-not-found.jpg') }}" alt="{{ $basketProduct->product->name }}" width="80" height="80">
                     </a>
                 </div>
                 <div class="text-gray-500 w-full max-sm:text-xs">
-                    <h3 class="font-bold text-black line-clamp-2">{{ $basketProduct->product->name }}</h3>
+                    <h3 class="font-bold text-black line-clamp-2 dark:text-primary">{{ $basketProduct->product->name }}</h3>
                     <div class="my-1">
-                        <span class="">Артикул: {{ $basketProduct->product->article }}</span>
+                        <span class="dark:text-white">Артикул: {{ $basketProduct->product->article }}</span>
                     </div>
                     <div class="">
-                        <span class="">Розмір: <span class="font-bold text-black">{{ $basketProduct->size->name }}</span></span>
+                        <span class="dark:text-white">Розмір: <span class="font-bold text-black dark:text-primary">{{ $basketProduct->size->name }}</span></span>
                     </div>
                 </div>
                 <div class="w-max min-w-max">

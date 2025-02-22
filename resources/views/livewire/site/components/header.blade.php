@@ -1,4 +1,4 @@
-<div class="static top-0 z-10 bg-[#5A72A0] h-20 w-full flex items-center">
+<div class="static top-0 z-10 bg-[#5A72A0] dark:bg-[#282828] dark: h-20 w-full flex items-center">
     <div class="mx-auto container px-4 sm:px-10 lg:px-20 justify-between gap-2 flex items-center">
         <div class="flex items-center gap-4 md:gap-12">
             <div class="w-[125px] xl:w-[200px]">
@@ -9,8 +9,8 @@
 
             <div class="md:w-[240px] xl:w-[320px] hidden md:block">
                 <div data-search-modal-open class="bg-[#FEFEFE] flex justify-between px-4 items-center rounded-xl h-9">
-                    <span>Пошук</span>
-                    <i class="ri-search-line ri-xl"></i>
+                    <span class="dark:text-black">Пошук</span>
+                    <i class="ri-search-line ri-xl dark:text-black"></i>
                 </div>
             </div>
 
@@ -21,17 +21,23 @@
 
         <div class="flex gap-3 md:gap-6 lg:gap-12 justify-between items-center">
             <div class="flex items-center gap-3 min-w-max">
+                <div>
+                    <button id="theme-toggle" class="p-2 rounded">
+                        <span id="light-icon">🌞</span>
+                        <span id="dark-icon" class="hidden">🌙</span>
+                    </button>
+                </div>
                 <div class="relative">
                     @livewire('site.basket')
                 </div>
-                <a href="{{ route('catalog') }}">
+                <a href="{{ route('catalog') }}" class="max-md:hidden">
                     <i class="ri-menu-search-line ri-xl text-white"></i>
                 </a>
             </div>
             <div class="flex gap-3 text-white">
                 @auth
                     @if(auth()->user()->role === App\Enums\RoleEnum::ADMIN)
-                        <a href="{{ route('admin.index') }}" class="flex items-center gap-1">
+                        <a href="{{ route('admin.index') }}" class="flex items-center gap-1 max-md:hidden">
                             <i class="ri-lock-2-line ri-xl"></i>
                             <span class="max-md:hidden">
                                 Адмінка
@@ -72,13 +78,30 @@
                 </div>
                 <div class="drawer-side z-[100]">
                   <label for="my-drawer-menu" aria-label="close sidebar" class="drawer-overlay"></label>
-                  <ul class="menu bg-base-200 text-base-content min-h-full w-80 max-sm:w-screen p-4">
+                  <ul class="menu bg-base-200 text-base-content min-h-full w-80 max-sm:w-screen p-4 dark:bg-[#282828] dark:text-white">
                     <div class="p-4 flex justify-between items-center border-b-2 border-b-gray-200">
                         <span class="font-bold text-2xl">Меню</span>
         
                         <label for="my-drawer-menu" class="drawer-button btn-primary cursor-pointer">
-                            <i class="ri-close-fill ri-xl text-black text-2xl"></i>
+                            <i class="ri-close-fill ri-xl text-black text-2xl dark:text-white"></i>
                         </label>
+                    </div>
+                    <div class="shadow-lg p-3 max-sm:w-full max-h-max w-full rounded-lg border-[1px] border-gray-200 mt-9 md:hidden">
+                        <a href="{{ route('catalog') }}" class="btn dark:bg-[#3f3f3f] dark:text-white dark:border-[#575757] w-full text-lg">
+                            <i class="ri-menu-search-line ri-xl text-white"></i>
+                            Каталог
+                        </a>
+
+                        @auth
+                        @if(auth()->user()->role === App\Enums\RoleEnum::ADMIN)
+                            <a href="{{ route('admin.index') }}" class="btn dark:bg-[#3f3f3f] dark:text-white dark:border-[#575757] w-full text-lg mt-3 md:hidden">
+                                <i class="ri-lock-2-line ri-xl"></i>
+                                <span class="md:hidden">
+                                    Адмінка
+                                </span>
+                            </a>
+                        @endif
+                        @endauth
                     </div>
                     <div class="shadow-lg p-3 max-sm:w-full max-h-max w-full rounded-lg border-[1px] border-gray-200 mt-9">
                         <div class="text-2xl font-bold border-b-2 border-b-gray-200">
@@ -86,21 +109,21 @@
                         </div>
             
                         <div class="mt-3 flex flex-col gap-3">
-                            <a href="{{ route('profile.home') }}" class="btn {{ request()->routeIs('profile.home') ? 'btn-primary' : '' }} w-full text-lg">
+                            <a href="{{ route('profile.home') }}" class="btn dark:bg-[#3f3f3f] dark:text-white dark:border-[#575757] {{ request()->routeIs('profile.home') ? 'btn-primary dark:bg-primary' : '' }} w-full text-lg">
                                 <i class="ri-user-line"></i>
                                 Профіль
                             </a>
-                            <a href="{{ route('profile.orders') }}" class="btn {{ request()->routeIs('profile.orders') ? 'btn-primary' : '' }} w-full text-lg">
+                            <a href="{{ route('profile.orders') }}" class="btn dark:bg-[#3f3f3f] dark:text-white dark:border-[#575757] {{ request()->routeIs('profile.orders') ? 'btn-primary dark:bg-primary' : '' }} w-full text-lg">
                                 <i class="ri-shopping-cart-line"></i>
                                 Мої покупки
                             </a>
-                            <a href="{{ route('profile.settings') }}" class="btn {{ request()->routeIs('profile.settings') ? 'btn-primary' : '' }} w-full text-lg">
+                            <a href="{{ route('profile.settings') }}" class="btn dark:bg-[#3f3f3f] dark:text-white dark:border-[#575757] {{ request()->routeIs('profile.settings') ? 'btn-primary dark:bg-primary' : '' }} w-full text-lg">
                                 <i class="ri-settings-4-line"></i>
                                 Налаштування
                             </a>
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
-                                <button class="btn w-full text-lg text-red-500">
+                                <button class="btn dark:bg-[#3f3f3f] dark:border-[#575757] w-full text-lg text-red-500">
                                     <i class="ri-logout-box-line"></i>
                                     Вийти
                                 </button>

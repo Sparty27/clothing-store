@@ -1,4 +1,4 @@
-<div class="bg-primary min-h-[300px] mt-12">
+<div class="bg-primary dark:bg-[#282828] min-h-[300px] mt-12">
     <div class="mx-auto container">
         <footer class="footer text-white px-20 pt-9 pb-6 md:pb-0 max-md:justify-center">
             <aside>

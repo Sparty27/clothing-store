@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="light">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,6 +9,17 @@
 
     <title>{{ config('app.name', 'Dressiety') }}</title>
 
+    {{-- <style>
+        body { opacity: 0; transition: opacity 0.2s ease-in-out; }
+    </style> --}}
+    <script>
+        if (localStorage.getItem("theme") === "dark" || 
+            (!localStorage.getItem("theme") && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+    </script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
@@ -24,7 +35,7 @@
     @stack('scripts')
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="dark:bg-[#121212] dark:text-white">
         @livewire('site.components.alert')
         @livewire('site.components.header')
 
@@ -39,21 +50,21 @@
                     </div>
         
                     <div class="mt-3 flex flex-col gap-3">
-                        <a href="{{ route('profile.home') }}" class="btn {{ request()->routeIs('profile.home') ? 'btn-primary' : '' }} w-full text-md">
+                        <a href="{{ route('profile.home') }}" class="btn dark:bg-[#3f3f3f] dark:text-white dark:border-[#575757] {{ request()->routeIs('profile.home') ? 'btn-primary dark:bg-primary' : '' }} w-full text-md">
                             <i class="ri-user-line"></i>
                             Профіль
                         </a>
-                        <a href="{{ route('profile.orders') }}" class="btn {{ request()->routeIs('profile.orders') ? 'btn-primary' : '' }} w-full text-md">
+                        <a href="{{ route('profile.orders') }}" class="btn dark:bg-[#3f3f3f] dark:text-white dark:border-[#575757] {{ request()->routeIs('profile.orders') ? 'btn-primary dark:bg-primary' : '' }} w-full text-md">
                             <i class="ri-shopping-cart-line"></i>
                             Мої покупки
                         </a>
-                        <a href="{{ route('profile.settings') }}" class="btn {{ request()->routeIs('profile.settings') ? 'btn-primary' : '' }} w-full text-md">
+                        <a href="{{ route('profile.settings') }}" class="btn dark:bg-[#3f3f3f] dark:text-white dark:border-[#575757] {{ request()->routeIs('profile.settings') ? 'btn-primary dark:bg-primary' : '' }} w-full text-md">
                             <i class="ri-settings-4-line"></i>
                             Налаштування
                         </a>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <button class="btn w-full text-md text-red-500">
+                            <button class="btn dark:bg-[#3f3f3f] dark:border-[#575757] w-full text-md text-red-500">
                                 <i class="ri-logout-box-line"></i>
                                 Вийти
                             </button>

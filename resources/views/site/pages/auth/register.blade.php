@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="flex justify-center items-center min-h-[calc(100vh-150px)]">
-    <div class="w-[400px] mx-auto shadow-xl rounded px-4 py-6 border-[1px] border-gray-100">
+    <div class="w-[400px] mx-auto shadow-xl rounded px-4 py-6 border-[1px] border-gray-100 dark:bg-[#282828] dark:border-[#575757]">
         <div class="card-header">
-            <div class="font-bold text-xl">{{ __('Register') }}</div>
+            <div class="font-bold text-xl dark:text-white">{{ __('Register') }}</div>
         </div>
 
         <div class="card-body">
@@ -12,7 +12,7 @@
                 @csrf
 
                 <div class="row mb-3">
-                    <label for="name" class="">{{ __('Name') }}</label>
+                    <label for="name" class="dark:text-white">{{ __('Name') }}</label>
 
                     <div class="col-md-6">
                         <label class="input input-bordered flex items-center gap-2">
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="email" class="">{{ __('Email Address') }}</label>
+                    <label for="email" class="dark:text-white">{{ __('Email Address') }}</label>
 
                     <div class="col-md-6">
                         {{-- <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus> --}}
@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                    <label for="password" class="col-md-4 col-form-label text-md-end dark:text-white">{{ __('Password') }}</label>
 
                     <div class="col-md-6">
                         {{-- <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password"> --}}
@@ -68,7 +68,7 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                    <label for="password-confirm" class="col-md-4 col-form-label text-md-end dark:text-white">{{ __('Confirm Password') }}</label>
 
                     <div class="col-md-6">
                         {{-- <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password"> --}}
@@ -96,9 +96,9 @@
 
                 <div class="flex items-center justify-center w-full mt-6">
                     <div class="flex items-center w-full">
-                        <div class="flex-1 border-t border-black"></div>
-                        <span class="px-4 text-center">або</span>
-                        <div class="flex-1 border-t border-black"></div>
+                        <div class="flex-1 border-t border-black dark:border-white"></div>
+                        <span class="px-4 text-cente dark:text-white">або</span>
+                        <div class="flex-1 border-t border-black dark:border-white"></div>
                     </div>
                 </div>
 

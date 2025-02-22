@@ -32,12 +32,12 @@
     
         <div class="w-full">
             <div>
-                <h1 class="text-[40px]">{{ $product->name }}</h1>
+                <h1 class="text-[40px] dark:text-white">{{ $product->name }}</h1>
                 <div class="flex gap-5">
-                    <span class="">
+                    <span class="dark:text-white">
                         Артикул: {{ $product->article }}
                     </span>
-                    <span>
+                    <span class="dark:text-white">
                         Категорія: {{ $product->category->name }}
                     </span>
                 </div>
@@ -55,7 +55,7 @@
             </div>
     
             <div class="mt-3">
-                <span class="font-semibold text-lg">Розмір</span>
+                <span class="font-semibold text-lg dark:text-white">Розмір</span>
                 <div class="flex gap-3 pl-1">
                     @foreach ($this->productSizes as $productSize)
                         <button type="button" wire:click="selectSize('{{ $productSize->size_id }}')" class="@if($productSize->count <= 0) cursor-default  text-gray-200 @else cursor-pointer @endif @if($selectedSize == $productSize->size_id) underline font-bold text-primary @endif">
@@ -80,10 +80,10 @@
     
             @if($product->description)
                 <div class="mt-3">
-                    <div class="text-lg pl-1 text-center">
+                    <div class="text-lg pl-1 text-center dark:text-white">
                         Опис
                     </div>
-                    <div class="text-sm font-semibold leading-relaxed">
+                    <div class="text-sm font-semibold leading-relaxed dark:text-white">
                         @if($showFullDesc)
                             {!! $product->description !!}
                         @else
@@ -91,7 +91,7 @@
                         @endif
                     </div>
                     <div class="flex justify-center">
-                        <button wire:click="toggleShowDesc" class="text-primary text-sm bg-white border-primary p-1 border-2 rounded-2xl mt-2 hover:bg-primary hover:text-white duration-200">
+                        <button wire:click="toggleShowDesc" class="text-white text-sm bg-primary border-primary p-1 border-2 rounded-2xl mt-2 hover:bg-white hover:text-primary duration-200">
                             {{ $showFullDesc ? 'Показати менше' : 'Показати більше' }}
                         </button>
                     </div>
@@ -102,9 +102,9 @@
 
     <div class="flex items-center justify-center w-full mt-6">
         <div class="flex items-center w-full">
-            <div class="flex-1 border-t border-black"></div>
-            <span class="px-4 text-center text-2xl">Схожі товари</span>
-            <div class="flex-1 border-t border-black"></div>
+            <div class="flex-1 border-t border-black dark:border-white"></div>
+            <span class="px-4 text-center text-2xl dark:text-white">Схожі товари</span>
+            <div class="flex-1 border-t border-black dark:border-white"></div>
         </div>
     </div>
 

@@ -14,7 +14,7 @@
         <input @isset($id) id="{{ $id }}" @endisset type="{{ $type ?? 'text' }}" placeholder="{{ $placeholder ?? 'Type here' }}" 
             @isset($isLive) wire:model.live="{{ $model }}" @else wire:model="{{ $model }}" @endisset
             @isset($autocomplete) autocomplete="{{ $autocomplete }}" @endisset
-            name="{{ $model }}" class="input {{ $size ?? 'input-sm' }} input-bordered w-full outline-none hover:outline-none focus:outline-none {{ $class ?? '' }} @error($model) input-error @enderror" />
+            name="{{ $model }}" class="input dark:text-black {{ $size ?? 'input-sm' }} input-bordered w-full outline-none hover:outline-none focus:outline-none {{ $class ?? '' }} @error($model) input-error @enderror" />
     @endisset
     
     @error($model)

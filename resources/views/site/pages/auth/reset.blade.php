@@ -5,7 +5,7 @@
 <div class="flex justify-center items-center min-h-[calc(100vh-150px)]">
     <div class="w-[450px] mx-auto shadow-xl rounded px-4 py-6 border-[1px] border-gray-100">
         <div class="card-header">
-            <div class="font-bold text-xl">Створіть новий пароль</div>
+            <div class="font-bold text-xl dark:text-white">Створіть новий пароль</div>
         </div>
 
         <div class="card-body pb-6">
@@ -15,7 +15,7 @@
                 <input type="hidden" name="login" value="{{ old('login', session('login')) }}">
 
                 <div class="row mb-3">
-                    <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                    <label for="password" class="col-md-4 col-form-label text-md-end dark:text-white">{{ __('Password') }}</label>
 
                     <div class="col-md-6">
                         {{-- <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password"> --}}
@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                    <label for="password-confirm" class="col-md-4 col-form-label text-md-end dark:text-white">{{ __('Confirm Password') }}</label>
 
                     <div class="col-md-6">
                         {{-- <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password"> --}}

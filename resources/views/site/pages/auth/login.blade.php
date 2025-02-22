@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="flex justify-center items-center min-h-[calc(100vh-150px)]">
-    <div class="w-[350px] mx-auto shadow-xl rounded px-4 py-6 border-[1px] border-gray-100">
+    <div class="w-[350px] mx-auto shadow-xl rounded px-4 py-6 border-[1px] border-gray-100 dark:bg-[#282828] dark:border-[#575757]">
         <div class="card-header">
-            <div class="font-bold text-xl">{{ __('Login') }}</div>
+            <div class="font-bold text-x dark:text-white">{{ __('Login') }}</div>
         </div>
 
         <div class="card-body pb-6">
@@ -12,7 +12,7 @@
                 @csrf
 
                 <div class="row mb-3">
-                    <label for="login" class="">{{ __('Email або телефон') }}</label>
+                    <label for="login" class="dark:text-white">{{ __('Email або телефон') }}</label>
 
                     <div class="col-md-6">
                         {{-- <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus> --}}
@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                    <label for="password" class="col-md-4 col-form-label text-md-end dark:text-white">{{ __('Password') }}</label>
 
                     <div class="col-md-6">
                         {{-- <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password"> --}}
@@ -54,7 +54,7 @@
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                            <label class="form-check-label" for="remember">
+                            <label class="form-check-label dark:text-white" for="remember">
                                 {{ __('Remember Me') }}
                             </label>
                         </div>
@@ -75,9 +75,9 @@
 
                 <div class="flex items-center justify-center w-full mt-3">
                     <div class="flex items-center w-full">
-                        <div class="flex-1 border-t border-black"></div>
-                        <span class="px-4 text-center">або</span>
-                        <div class="flex-1 border-t border-black"></div>
+                        <div class="flex-1 border-t border-black dark:border-white"></div>
+                        <span class="px-4 text-center dark:text-white">або</span>
+                        <div class="flex-1 border-t border-black dark:border-white"></div>
                     </div>
                 </div>
 

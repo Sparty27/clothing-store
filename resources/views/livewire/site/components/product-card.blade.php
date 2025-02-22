@@ -1,4 +1,4 @@
-<div class="rounded-lg p-6 sm:p-4 @if($isSmall) p-3 sm:p-2 @endif shadow-xl border-gray-200 border-[1px] flex flex-col justify-between">
+<div class="rounded-lg p-6 sm:p-4 @if($isSmall) p-3 sm:p-2 @endif shadow-xl border-gray-200 dark:border-[#575757] border-[1px] flex flex-col justify-between">
     <a href="{{ route('products.show', $product->slug) }}" class="relative block">
         @if ($product->discount_percentage)
             <div class="absolute top-0 right-0">
@@ -7,10 +7,10 @@
         @endif
 
         <div class="w-full h-[230px] flex items-center justify-center">
-            <img class="max-w-[230px] @if($isSmall) max-w-[150px] @endif" src="{{ $mainPhoto->public_url ?? asset('img/image-not-found.jpg') }}" alt="{{ $product->name }}" width="230" height="230" decoding="async" loading="lazy" title="{{ $product->name }}">
+            <img class="w-full max-w-[230px] @if($isSmall) max-w-[150px] @endif" src="{{ $mainPhoto->public_url ?? asset('img/image-not-found.jpg') }}" alt="{{ $product->name }}" width="230" height="230" decoding="async" loading="lazy" title="{{ $product->name }}">
         </div>
         <div class="w-full">
-            <div class="break-words font-bold text-lg @if($isSmall) text-md @endif line-clamp-2">{{ $product->name }}</div>
+            <div class="break-words font-bold text-lg @if($isSmall) text-md @endif line-clamp-2 dark:text-white">{{ $product->name }}</div>
             @if ($product->is_in_stock)
                 <span class="text-[#76c267]">В наявності</span>
             @else

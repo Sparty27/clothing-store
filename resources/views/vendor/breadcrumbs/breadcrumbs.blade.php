@@ -4,7 +4,7 @@
             @foreach($breadcrumbs as $breadcrumb)
                 @if ($breadcrumb->url && !$loop->last)
                     <li class="decoration-transparent">
-                        <a href="{{ $breadcrumb->url }}" class="">{{ $breadcrumb->title }}</a>
+                        <a href="{{ $breadcrumb->url }}" class="dark:text-white">{{ $breadcrumb->title }}</a>
                     </li>
                 @else
                     <li>
