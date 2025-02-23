@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PhoneForm;
 use App\Models\PasswordReset;
 use App\Models\User;
+use App\Notifications\ResetPasswordNotification;
 use Exception;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Propaganistas\LaravelPhone\PhoneNumber;
 
@@ -71,8 +73,13 @@ class ResetPasswordController extends Controller
         $reset->increment('attempts');
         $reset->save();
 
-        // TODO: відправляти повідомлення
-        // sms()->sendMessage([$phone], "Ваш код для відновлення пароля: $token");
+        if ($field === 'phone') {
+            $notifiable = (object) ['phone' => (new PhoneNumber($login, ['UA']))];
+            Notification::send($notifiable, new ResetPasswordNotification($data['token']));
+        } else {
+            Notification::route('mail', $login)
+                ->notify(new ResetPasswordNotification($data['token']));
+        }
 
         session()->put('login', $login);
 

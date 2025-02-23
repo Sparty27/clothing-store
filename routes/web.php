@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Site\OrderController;
 use App\Http\Controllers\Site\ProductController;
 use App\Http\Controllers\Site\SiteController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,3 +45,7 @@ Route::name('orders.')->controller(OrderController::class)->group(function() {
     Route::get('/checkout', 'checkout')->name('checkout')->middleware('basket.not.empty');
     Route::get('/thank', 'thank')->name('thank');
 });
+
+
+// TODO: delete this route
+Route::get('/test', [TestController::class, 'test']);

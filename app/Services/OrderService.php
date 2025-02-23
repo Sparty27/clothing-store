@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductSize;
+use App\Models\User;
+use App\Notifications\Ordered;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -41,6 +43,12 @@ class OrderService
             basket()->clear();
 
             DB::commit();
+
+            $user = User::where('id', $order->user_id)->first();
+
+            if ($user) {
+                $user->notify((new Ordered($order)));
+            }
 
             // telegram()->sendOrderedNotification($order);
             // sms()->sendMessage([$order->phone->formatE164()], "Дякуємо за замовлення на сайті Dressiety. Сума до оплати: ".$data['total']->getAmount()->toFloat());

@@ -85,7 +85,7 @@
                     </div>
                     <div class="text-sm font-semibold leading-relaxed dark:text-white">
                         @if($showFullDesc)
-                            {!! $product->description !!}
+                            {!! strip_tags($product->description) !!}
                         @else
                             {!! Str::limit(strip_tags($product->description), 400, '...') !!}
                         @endif
