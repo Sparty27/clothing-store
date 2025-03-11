@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Enums\LoginType;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Propaganistas\LaravelPhone\PhoneNumber;
@@ -51,7 +54,11 @@ class LoginController extends Controller
 
     protected function attemptLogin(Request $request)
     {
-        return Auth::attempt($this->credentials($request), $request->boolean('remember'));
+        $result = Auth::attempt($this->credentials($request), $request->boolean('remember'));
+
+        if ($result) {
+            Log::info(auth()->user()->createToken('auth_token')->plainTextToken);
+        }
     }
 
     protected function validateLogin(Request $request)
@@ -66,7 +73,6 @@ class LoginController extends Controller
     {
         $login = $request->input('login');
 
-        // Перевірка, чи введений логін є email чи номером телефону
         $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
 
         if ($field === 'phone') {
@@ -84,5 +90,20 @@ class LoginController extends Controller
         throw ValidationException::withMessages([
             'login' => [trans('auth.failed')],
         ]);
+    }
+
+    protected function sendLoginResponse(Request $request)
+    {
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+
+        if ($response = $this->authenticated($request, $this->guard()->user())) {
+            return $response;
+        }
+        
+        return $request->wantsJson()
+                    ? new JsonResponse([], 204)
+                    : redirect()->intended($this->redirectPath());
     }
 }
