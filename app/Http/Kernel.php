@@ -47,6 +47,10 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
+        'telegram' => [
+            'api',
+        ],
+
         'admin' => [
             'auth',
             'is.admin',

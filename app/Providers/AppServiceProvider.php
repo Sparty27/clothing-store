@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Telegram\Middleware\CancelMiddleware;
 use App\View\Composers\FooterComposer;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class AppServiceProvider extends ServiceProvider
 {
