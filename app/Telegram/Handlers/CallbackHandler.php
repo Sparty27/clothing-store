@@ -3,6 +3,7 @@
 namespace App\Telegram\Handlers;
 
 use App\Models\Order;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Telegram\Bot\Keyboard\Keyboard;
@@ -31,20 +32,30 @@ class CallbackHandler extends Handler
         }
     }
 
-    private static function handleOrdersPage(int $chatId, int $messageId, int $page)
+    private static function handleOrdersPage(int $chatId, int $messageId, int $page, $newMessage = false)
     {
         if (!self::isModerator($chatId)) return;
 
         $orders = Order::orderBy('created_at', 'desc')
             ->paginate(2, ['*'], 'page', $page);
 
-        Telegram::editMessageText([
-            'chat_id' => $chatId,
-            'message_id' => $messageId,
-            'text' => self::formatOrdersPage($orders, $page),
-            'parse_mode' => 'HTML',
-            'reply_markup' => self::buildPaginationKeyboard($orders, $page)
-        ]);
+        if ($newMessage) {
+            Telegram::sendMessage([
+                'chat_id' => $chatId,
+                'text' => self::formatOrdersPage($orders, $page),
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::buildPaginationKeyboard($orders, $page)
+            ]);
+        } else {
+            Telegram::editMessageText([
+                'chat_id' => $chatId,
+                'message_id' => $messageId,
+                'text' => self::formatOrdersPage($orders, $page),
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::buildPaginationKeyboard($orders, $page)
+            ]);
+        }
+
     }
 
     private static function showEditMenu(int $chatId, int $messageId, int $orderId, int $page)
@@ -59,7 +70,7 @@ class CallbackHandler extends Handler
             Keyboard::inlineButton(['text' => '🔄 Статус', 'callback_data' => "edit_field_status_{$orderId}_{$page}"])
         ]);
         $keyboard->row([
-            Keyboard::inlineButton(['text' => '🚚 Доставка', 'callback_data' => "edit_field_delivery_{$orderId}_{$page}"]),
+            Keyboard::inlineButton(['text' => '🚚 Статус доставки', 'callback_data' => "edit_field_delivery-status_{$orderId}_{$page}"]),
             Keyboard::inlineButton(['text' => '↩️ Назад', 'callback_data' => "orders_page_{$page}"])
         ]);
 
@@ -81,10 +92,11 @@ class CallbackHandler extends Handler
         $config = [
             'ttn' => ['type' => 'text', 'force_reply' => true, 'message' => "Введіть новий ТТН для замовлення #{$orderId}:"],
             'status' => ['type' => 'options', 'options' => ['new', 'in-process', 'done']],
-            'delivery' => ['type' => 'options', 'options' => ['created', 'in-process', 'deliveried', 'canceled', 'returned']],
+            'delivery-status' => ['type' => 'options', 'options' => ['created', 'in-process', 'deliveried', 'canceled', 'returned']],
         ][$field];
 
         if ($field === 'ttn') {
+            Cache::put("user_{$chatId}_current_page", $page, 300);
             Telegram::sendMessage([
                 'chat_id' => $chatId,
                 'text' => $config['message'],
@@ -105,7 +117,7 @@ class CallbackHandler extends Handler
         Telegram::editMessageText([
             'chat_id' => $chatId,
             'message_id' => $messageId,
-            'text' => $config['message'] ?? "Оберіть нове значення для {$field}:",
+            'text' => $config['message'] ?? "Оберіть нове значення для ".trans('telegram.'.$field.'.'.$field).":",
             'reply_markup' => $keyboard
         ]);
     }
@@ -115,7 +127,7 @@ class CallbackHandler extends Handler
         $keyboard = Keyboard::make()->inline();
         foreach ($options as $option) {
             $keyboard->row([Keyboard::inlineButton([
-                'text' => $option,
+                'text' => trans('telegram.'.$field.'.'.$option),
                 'callback_data' => "save_{$field}_{$orderId}_{$page}_".urlencode($option)
             ])]);
         }
@@ -129,23 +141,32 @@ class CallbackHandler extends Handler
     public static function handleSaveField(int $chatId, $messageId, string $data)
     {
         $parts = explode('_', $data);
-        $field = $parts[1];
+        $oldField = $parts[1];
+        $field = str_replace('-', '_', $parts[1]);
         $orderId = $parts[2];
         $page = $parts[3];
-        $value = str_replace('-', '_', urldecode($parts[4]));
+        $value = urldecode($parts[4]);
+    
+        if ($field !== 'ttn') {
+            $value = str_replace('-', '_', $value);
+        }
+
+        if ($field === 'ttn') {
+            $value = str_replace(['-', ' '], '', $value);
+        }
+
         Log::info(json_encode($field, JSON_PRETTY_PRINT));
         Log::info(json_encode($value, JSON_PRETTY_PRINT));
 
+    
         $order = Order::findOrFail($orderId);
-        Log::info(json_encode($order, JSON_PRETTY_PRINT));
         $order->update([$field => $value]);
-        Log::info(json_encode($order, JSON_PRETTY_PRINT));
 
         Telegram::sendMessage([
             'chat_id' => $chatId,
-            'text' => "✅ Поле {$field} успішно оновлено!"
+            'text' => "✅ Поле ".trans('telegram.'.$oldField.'.'.$oldField)." успішно оновлено!"
         ]);
-
-        self::handleOrdersPage($chatId, $messageId, $page);
+    
+        self::handleOrdersPage($chatId, $messageId, $page, ($field === 'ttn' ? true : false));
     }
 }
