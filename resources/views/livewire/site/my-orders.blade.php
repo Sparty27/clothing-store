@@ -2,7 +2,9 @@
     <div class="text-2xl md:text-[36px] font-bold flex justify-center">
         Мої покупки
     </div>
-    <div class="mt-6 rounded-2xl border-gray-100 dark:border-none border-[1px] p-3 shadow-lg">
+    <div class="mt-6 rounded-2xl 
+        {{-- border-gray-100 dark:border-none border-[1px] shadow-lg --}}
+        p-3">
         @foreach($this->orders as $order)
             <div class="p-3 rounded-xl shadow-lg border-gray-200 border-[1px] mt-6">
                 <div class="flex justify-between border-b-gray-200 border-b-2 pb-2">

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('phone')->nullable()->change();
             $table->string('email')->nullable()->index()->after('phone');
             $table->integer('attempts')->default(1)->after('token');
-
         });
     }
 

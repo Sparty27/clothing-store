@@ -23,7 +23,7 @@
                 </div>
             </a>
         @empty
-            <span class="text-center">{!! trans('global.products_not_found') !!}</span>
+            <span class="text-center">Товарів не знайдено</span>
         @endforelse
     </div>
 </div>

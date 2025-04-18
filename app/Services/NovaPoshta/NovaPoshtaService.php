@@ -29,8 +29,8 @@ class NovaPoshtaService
                 'modelName' => 'Address',
                 'calledMethod' => $calledMethod,
                 'methodProperties' => [
-                    'Page' => 1,
-                    'Limit' => 1
+                    'Page' => '1',
+                    'Limit' => '1'
                 ]
             ]);
 

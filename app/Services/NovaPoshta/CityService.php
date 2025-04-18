@@ -25,8 +25,8 @@ class CityService
                 'modelName' => 'Address',
                 'calledMethod' => 'getCities',
                 'methodProperties' => [
-                    'Page' => $page,
-                    'Limit' => $limit
+                    'Page' => strval($page),
+                    'Limit' => strval($limit)
                 ]
             ]);
 
@@ -42,7 +42,7 @@ class CityService
 
             return $jsonData['data'];
         } catch(Exception $e) {
-            Log::error('Помилка з отриманням міст, (CityService->getCities): '.$e->getMessage());
+            Log::error($page.$limit.'Помилка з отриманням міст, (CityService->getCities): '.$e->getMessage());
         }
 
         return false;

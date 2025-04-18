@@ -40,8 +40,8 @@ return [
              */
             'allowed_updates' => null,
             'commands' => [
-                App\Telegram\Commands\StartCommand::class,
-                App\Telegram\Commands\OrdersCommand::class,
+                // App\Telegram\Commands\StartCommand::class,
+                // App\Telegram\Commands\OrdersCommand::class,
                 // Acme\Project\Commands\MyTelegramBot\BotCommand::class
             ],
         ],
