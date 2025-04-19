@@ -62,13 +62,23 @@
                             <i class="ri-settings-4-line"></i>
                             Налаштування
                         </a>
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button class="btn dark:bg-[#3f3f3f] dark:border-[#575757] w-full text-md text-red-500">
-                                <i class="ri-logout-box-line"></i>
-                                Вийти
-                            </button>
-                        </form>
+                        @auth
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button class="btn dark:bg-[#3f3f3f] dark:border-[#575757] w-full text-md text-red-500">
+                                    <i class="ri-logout-box-line"></i>
+                                    Вийти
+                                </button>
+                            </form>
+                        @endauth
+                        @guest
+                            <a href="{{ route('login') }}" class="flex items-center gap-1">
+                                <i class="ri-user-line ri-xl"></i>
+                                <span class="max-sm:hidden">
+                                    Увійти
+                                </span>
+                            </a>
+                        @endguest
                     </div>
                 </div>
                 <div class="w-full">

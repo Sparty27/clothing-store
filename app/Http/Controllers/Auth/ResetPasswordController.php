@@ -70,8 +70,9 @@ class ResetPasswordController extends Controller
             return back()->withErrors(['form' => 'Забагато спроб за сьогодні']);
         }
 
+        $reset->refresh();
         $reset->increment('attempts');
-        $reset->save();
+        // $reset->save();
 
         if ($field === 'phone') {
             $notifiable = (object) ['phone' => (new PhoneNumber($login, ['UA']))];

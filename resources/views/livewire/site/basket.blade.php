@@ -30,7 +30,7 @@
             </div>
 
             <div class="p-3 flex-col flex grow">
-                <div class="basket__content">
+                <div class="basket__content max-h-[450px] overflow-y-scroll">
                     @foreach($this->basketProducts as $basketProduct)
                         <div class="bg-white dark:bg-[#3f3f3f] flex items-center gap-2 mt-3 p-2" wire:key="{{ $basketProduct->id }}">
                             <div class="flex items-center min-w-max w-max">

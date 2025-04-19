@@ -48,7 +48,9 @@
                 @guest
                     <a href="{{ route('login') }}" class="flex items-center gap-1">
                         <i class="ri-user-line ri-xl"></i>
-                        Увійти
+                        <span class="max-sm:hidden">
+                            Увійти
+                        </span>
                     </a>
                 @endguest
                 @auth
@@ -88,14 +90,14 @@
                     </div>
                     <div class="shadow-lg p-3 max-sm:w-full max-h-max w-full rounded-lg border-[1px] border-gray-200 mt-9 md:hidden">
                         <a href="{{ route('catalog') }}" class="btn dark:bg-[#3f3f3f] dark:text-white dark:border-[#575757] w-full text-lg">
-                            <i class="ri-menu-search-line ri-xl text-white"></i>
+                            <i class="ri-menu-search-line"></i>
                             Каталог
                         </a>
 
                         @auth
                         @if(auth()->user()->role === App\Enums\RoleEnum::ADMIN)
                             <a href="{{ route('admin.index') }}" class="btn dark:bg-[#3f3f3f] dark:text-white dark:border-[#575757] w-full text-lg mt-3 md:hidden">
-                                <i class="ri-lock-2-line ri-xl"></i>
+                                <i class="ri-lock-2-line"></i>
                                 <span class="md:hidden">
                                     Адмінка
                                 </span>
@@ -121,13 +123,21 @@
                                 <i class="ri-settings-4-line"></i>
                                 Налаштування
                             </a>
-                            <form action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <button class="btn dark:bg-[#3f3f3f] dark:border-[#575757] w-full text-lg text-red-500">
-                                    <i class="ri-logout-box-line"></i>
-                                    Вийти
-                                </button>
-                            </form>
+                            @auth
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button class="btn dark:bg-[#3f3f3f] dark:border-[#575757] w-full text-lg text-red-500">
+                                        <i class="ri-logout-box-line"></i>
+                                        Вийти
+                                    </button>
+                                </form>
+                            @endauth
+                            @guest
+                                <a href="{{ route('login') }}" class="btn dark:bg-[#3f3f3f] dark:text-white dark:border-[#575757] w-full text-lg">
+                                    <i class="ri-user-line"></i>
+                                    Увійти
+                                </a>
+                            @endguest
                         </div>
                     </div>
                   </ul>

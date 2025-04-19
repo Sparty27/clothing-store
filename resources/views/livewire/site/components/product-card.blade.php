@@ -6,8 +6,8 @@
             </div>
         @endif
 
-        <div class="w-full h-[230px] flex items-center justify-center">
-            <img class="w-full max-w-[230px] @if($isSmall) max-w-[150px] @endif" src="{{ $mainPhoto->public_url ?? asset('img/image-not-found.jpg') }}" alt="{{ $product->name }}" width="230" height="230" decoding="async" loading="lazy" title="{{ $product->name }}">
+        <div class="w-full flex items-center justify-center">
+            <img class="w-full max-w-[230px] max-h-[230px] object-contain @if($isSmall) max-w-[150px] max-h-[150px] @endif" src="{{ $mainPhoto->public_url ?? asset('img/image-not-found.jpg') }}" alt="{{ $product->name }}" width="230" height="230" decoding="async" loading="lazy" title="{{ $product->name }}">
         </div>
         <div class="w-full">
             <div class="break-words font-bold text-lg @if($isSmall) text-md @endif line-clamp-2 dark:text-white">{{ $product->name }}</div>

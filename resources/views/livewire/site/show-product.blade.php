@@ -58,7 +58,7 @@
                 <span class="font-semibold text-lg dark:text-white">Розмір</span>
                 <div class="flex gap-3 pl-1">
                     @foreach ($this->productSizes as $productSize)
-                        <button type="button" wire:click="selectSize('{{ $productSize->size_id }}')" class="@if($productSize->count <= 0) cursor-default  text-gray-200 @else cursor-pointer @endif @if($selectedSize == $productSize->size_id) underline font-bold text-primary @endif">
+                        <button type="button" wire:click="selectSize('{{ $productSize->size_id }}')" class="dark:text-white @if($productSize->count <= 0) cursor-default text-gray-200 @else cursor-pointer @endif @if($selectedSize == $productSize->size_id) underline font-bold text-primary @endif">
                             {{ $productSize->size->name }}
                         </button>
                     @endforeach
