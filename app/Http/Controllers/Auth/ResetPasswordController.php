@@ -31,6 +31,8 @@ class ResetPasswordController extends Controller
         $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
 
         $data = [
+            'phone' => null,
+            'email' => null,
             'token' => rand(100000, 999999),
             'created_at' => now(),
         ];
@@ -68,7 +70,7 @@ class ResetPasswordController extends Controller
 
         $reset = PasswordReset::updateOrCreate([
             'ip' => $request->ip(),
-        ], $data);
+        ], $data)->refresh();
 
         if ($reset->attempts >= config('auth.max_password_reset_attempts')) {
             Log::info('Too many attempts');
