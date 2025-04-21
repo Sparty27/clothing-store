@@ -7,7 +7,7 @@
 @section('content')
 <div>
     <div>
-        Ваш код для відновлення пароля: <b>12345</b>
+        Ваш код для відновлення пароля: <b>{{ $token }}</b>
     </div>
     
     <div style="margin-top: 0.75rem">

@@ -74,7 +74,7 @@ class ResetPasswordController extends Controller
 
         if ($reset->attempts >= config('auth.max_password_reset_attempts')) {
             Log::info('Too many attempts');
-            return back()->withErrors(['form' => 'Забагато спроб за сьогодні']);
+            return back()->withErrors(['form' => 'Забагато спроб за сьогодні'])->with('alert', 'Забагато спроб за сьогодні');
         }
 
         Log::info('sending code');
@@ -82,19 +82,22 @@ class ResetPasswordController extends Controller
         $reset->refresh();
         $reset->increment('attempts');
         // $reset->save();
-
+        
+        $message = '';
         if ($field === 'phone') {
             $notifiable = (object) ['phone' => (new PhoneNumber($login, ['UA']))];
             Log::info("Відправка коду відновлення на номер телефону ($login)");
+            $message = 'Код відправлено вам на номер телефону';
             Notification::send($notifiable, new ResetPasswordNotification($data['token']));
         } else {
+            $message = 'Код відправлено вам на електрону пошту';
             Notification::route('mail', $login)
                 ->notify(new ResetPasswordNotification($data['token']));
         }
 
         session()->put('login', $login);
 
-        return redirect()->route('password.verify');
+        return redirect()->route('password.verify')->with('alert', $message);
     }
 
     public function showVerifyForm()
@@ -116,7 +119,7 @@ class ResetPasswordController extends Controller
             ->first();
 
         if (!$reset || now()->diffInMinutes($reset->created_at) > 10) {
-            return back()->withErrors(['token' => 'Код неправильний або прострочений.']);
+            return back()->withErrors(['token' => 'Код неправильний або прострочений.'])->with('alert', 'Код неправильний або прострочений');
         }
 
         return redirect()->route('password.reset');
