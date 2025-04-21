@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Log;
 
 class ResetPasswordNotification extends Notification implements ShouldQueue
 {
@@ -34,6 +35,7 @@ class ResetPasswordNotification extends Notification implements ShouldQueue
 
     public function toSms(object $notifiable)
     {
+        Log::info('toSMS method called');
         return view('emails.reset-password-text', ['token' => $this->token])->render();
     }
 

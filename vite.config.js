@@ -10,9 +10,6 @@ export default defineConfig({
 
                 'resources/site/scss/app.scss',
                 'resources/site/js/app.js',
-
-                'resources/emails/scss/app.scss',
-                'resources/emails/js/app.js',
             ],
             refresh: true,
         }),

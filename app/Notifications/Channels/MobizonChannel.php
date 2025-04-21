@@ -18,6 +18,7 @@ class MobizonChannel
 
     public function send(object $notifiable, Notification $notification): void
     {
+        Log::info('MobizonChannel, початок відправки повідомлення');
         try {
             $message = $notification->toSms($notifiable);
     

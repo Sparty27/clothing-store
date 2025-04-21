@@ -1,39 +1,97 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="uk">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>@yield('title')</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <style>
+        body {
+            background-color: #f3f4f6;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
 
-    <title>{{ config('app.name', 'Dressiety') }}</title>
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            color: #111827;
+        }
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+        .section {
+            margin-top: 20px;
+        }
 
-    <!-- Scripts -->
-    @vite('resources/emails/scss/app.scss')
-    @vite('resources/emails/js/app.js')
+        .section h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .product {
+            border-top: 1px solid #e5e7eb;
+            padding: 15px 0;
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .product img {
+            float: left;
+            margin-right: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .product-details {
+            display: table-cell;
+            vertical-align: top;
+        }
+
+        p {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            font-size: 14px;
+            color: #6b7280;
+            text-align: center;
+            border-top: 1px solid #e5e7eb;
+            margin-top: 30px;
+            padding-top: 20px;
+        }
+
+        .text-bold {
+            font-weight: bold;
+        }
+
+        .text-primary {
+            color: #1d4ed8;
+        }
+    </style>
 </head>
 <body>
-    <main class='bg-gray-300 min-h-screen pt-9'>
-        <div class="mx-auto max-sm:max-w-[400px] max-w-[500px] p-4 bg-white shadow-lg rounded-lg">
-            <div class="flex justify-center">
-                <img class="" src="{{ asset('img/svg/logo.svg') }}" alt="search" width="200">
-            </div>
-            <div class="mt-3 font-bold text-lg">
-                @yield('title')
-            </div>
-            <div class="mt-6">
-                @yield('content')
-            </div>
-
-            <div class="border-t-[1px] border-t-gray-100 text-sm p-4 mt-6">
-                Дякую, що користуєтесь Dressiety!
-            </div>
+    <div class="container">
+        <div style="text-align: center;">
+            <img src="https://nyshchyi-nazar.pp.ua/img/svg/logo.svg" alt="Dressiety Logo" width="150">
         </div>
-    </main>
+
+        <h2 style="text-align: center;">
+            @yield('title')
+        </h2>
+
+        <div class="section">
+            @yield('content')
+        </div>
+
+        <div class="footer">
+            Дякуємо, що користуєтесь Dressiety!
+        </div>
+    </div>
 </body>
 </html>

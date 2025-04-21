@@ -35,6 +35,8 @@ class ResetPasswordController extends Controller
             'created_at' => now(),
         ];
 
+        Log::info('Entered value: '.$field);
+
         if ($field === 'phone') {
             try {
                 $login = new PhoneNumber($login, 'UA');
@@ -62,13 +64,18 @@ class ResetPasswordController extends Controller
             $data['email'] = $login;
         }
 
+        Log::info('Validated');
+
         $reset = PasswordReset::updateOrCreate([
             'ip' => $request->ip(),
         ], $data);
 
         if ($reset->attempts >= config('auth.max_password_reset_attempts')) {
+            Log::info('Too many attempts');
             return back()->withErrors(['form' => 'Забагато спроб за сьогодні']);
         }
+
+        Log::info('sending code');
 
         $reset->refresh();
         $reset->increment('attempts');
@@ -76,6 +83,7 @@ class ResetPasswordController extends Controller
 
         if ($field === 'phone') {
             $notifiable = (object) ['phone' => (new PhoneNumber($login, ['UA']))];
+            Log::info("Відправка коду відновлення на номер телефону ($login)");
             Notification::send($notifiable, new ResetPasswordNotification($data['token']));
         } else {
             Notification::route('mail', $login)

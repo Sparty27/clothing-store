@@ -49,3 +49,4 @@ Route::name('orders.')->controller(OrderController::class)->group(function() {
 
 // TODO: delete this route
 Route::get('/test', [TestController::class, 'test']);
+Route::get('/test-view', [TestController::class, 'testview']);
