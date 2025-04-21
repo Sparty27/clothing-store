@@ -155,7 +155,7 @@
                         <span class="label-text">Місто</span>
                     </div>
                     
-                    @include('livewire.admin.form.select2', [
+                    @include('livewire.admin.form.select2-api', [
                         'wireModel' => 'selectedCity',
                         'key' => 'city-selector',
                         'url' => '/api/novaposhta/cities',
@@ -171,7 +171,7 @@
                         <span class="label-text">Відділення</span>
                     </div>
 
-                    @include('livewire.admin.form.select2', [
+                    @include('livewire.admin.form.select2-api', [
                         'wireModel' => 'selectedWarehouse',
                         'key' => 'warehouse-selector',
                         'url' => '/api/novaposhta/warehouses',
