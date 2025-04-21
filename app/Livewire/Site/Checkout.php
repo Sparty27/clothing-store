@@ -47,7 +47,7 @@ class Checkout extends Component
 
         $this->name = $user->name;
         $this->lastName = $user->last_name;
-        $this->phone = $user->phone->formatInternational();
+        $this->phone = $user?->phone?->formatInternational() ?? null;
 
         if (!$this->order) {
             return;
@@ -61,7 +61,7 @@ class Checkout extends Component
 
         $this->name = $order->customer_name;
         $this->lastName = $order->customer_last_name;
-        $this->phone = $order->phone->formatInternational();
+        $this->phone = $order?->phone?->formatInternational() ?? null;
         $this->deliveryMethod = $order->delivery_method->value;
         $this->paymentMethod = $order->payment_method->value;
         $this->note = $order->note;
