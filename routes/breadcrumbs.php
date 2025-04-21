@@ -46,6 +46,6 @@ Breadcrumbs::for('category', function (BreadcrumbTrail $trail, $category) {
 });
 
 Breadcrumbs::for('product', function (BreadcrumbTrail $trail, $product) {
-    $trail->parent('index');
+    $trail->parent('category', $product->category);
     $trail->push($product->name, route('products.show', $product->slug));
 });
