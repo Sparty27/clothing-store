@@ -50,7 +50,7 @@
                         <select style="width: 100%; height: 100%" id="searchCities" x-data="select2($el, $wire, 'selectedCity', '/api/novaposhta/cities')" ></select>
                     </div>
         
-                    @error($selectedCity)
+                    @error('selectedCity')
                         <div class="text-red-500 mt-1">
                             {{ $message }}
                         </div>
@@ -69,7 +69,7 @@
                         <select style="width: 100%; height: 100%" id="searchWarehouses" x-data="select2($el, $wire, 'selectedWarehouse', '/api/novaposhta/warehouses', @js(['selectedCity' => 'selectedCity', 'relatedOnly' => true]))"></select>
                     </div>
         
-                    @error($selectedWarehouse)
+                    @error('selectedWarehouse')
                         <div class="text-red-500 mt-1">
                             {{ $message }}
                         </div>
