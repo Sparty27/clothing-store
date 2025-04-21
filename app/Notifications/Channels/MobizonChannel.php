@@ -27,4 +27,4 @@ class MobizonChannel
             Log::error('MobizonService, send method. '.$e->getMessage());
         }
     }
-}
+} 

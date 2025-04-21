@@ -1,5 +1,5 @@
 Замовлення #{{ $order->id }}. Клієнт: {{ $order->customer_last_name }} {{ $order->customer_name }}
-Загальна сума: {{ $order->money_total }} грн. Доставка: {{ $order->warehouse->city->name }}, {{ $order->warehouse->name }}. Дякуємо за замовлення!
+Загальна сума: {{ $order->money_total }} грн. @if($order->warehouse)Доставка: {{ $order->warehouse->city->name }}, {{ $order->warehouse->name }}.@endif Дякуємо за замовлення!
 
 {{-- Замовлення #{{ $order->id }}. Клієнт: {{ $order->customer_last_name }} {{ $order->customer_name }}
 Товари:
