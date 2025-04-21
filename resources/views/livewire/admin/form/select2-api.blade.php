@@ -36,7 +36,7 @@
 
     <div wire:key="{{ $key }}">
         <div wire:ignore class="">
-            <select style="width: 100%; height: 100%" id="{{ $key }}" x-data="select2($el, $wire, @js($wireModel), @js($url), @js($passedData))">
+            <select style="width: 100%; height: 100%" id="{{ $key }}" x-data="select2api($el, $wire, @js($wireModel), @js($url), @js($passedData))">
                 @isset($options)
                     <option value="null" @isset($disableEmptyOption) disabled @endisset selected>{{ $placeholder ?? '' }}</option>
                     @foreach ($options as $option)

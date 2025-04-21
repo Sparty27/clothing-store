@@ -65,3 +65,11 @@ Alpine.data('select2', (el, wire, wireModel, url, passedData) => {
         wire.set(wireModel, e.target.value);
     });
 });
+
+Alpine.data('select2', (el, wire, wireModel) => {
+    $(el).select2();
+
+    $(el).on('change', function (e) {
+        wire.set(wireModel, e.target.value);
+    });
+});
