@@ -21,6 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::controller(NovaPoshtaController::class)->name('novaposhta.')->prefix('novaposhta')->group(function () {
-    Route::get('/cities', 'cities')->name('cities');
-    Route::get('/warehouses', 'warehouses')->name('warehouses');
+    Route::get('/cities/{city?}', 'cities')->name('cities');
+    Route::get('/warehouses/{warehouse?}', 'warehouses')->name('warehouses');
 });

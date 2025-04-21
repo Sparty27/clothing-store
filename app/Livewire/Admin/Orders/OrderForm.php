@@ -9,6 +9,7 @@ use App\Enums\PaymentMethodEnum;
 use App\Enums\PaymentStatusEnum;
 use App\Models\Order;
 use App\Models\OrderProduct;
+use App\Rules\WarehouseBelongsToCity;
 use Brick\Math\RoundingMode;
 use Brick\Money\Money;
 use Exception;
@@ -21,7 +22,7 @@ class OrderForm extends Component
     public Order $order;
     public $selectedCity = null;
     public $selectedWarehouse = null;
-    public array $formData;
+    public array $data;
     public array $quantities = [];
     public array $prices = [];
 
@@ -40,22 +41,22 @@ class OrderForm extends Component
                 return redirect()->route('admin.orders.index')->with('alert', 'Редагування можливе тільки для замовлень в обробці');
             }
 
-            $this->formData['warehouse_id'] = $order->warehouse_id;
-            $this->formData['status'] = $order->status;
-            $this->formData['total'] = $order->total->getAmount()->toFloat();
-            $this->formData['phone'] = $order->phone->formatInternational();
-            $this->formData['customer_name'] = $order->customer_name;
-            $this->formData['customer_last_name'] = $order->customer_last_name;
-            $this->formData['payment_method'] = $order->payment_method;
-            $this->formData['payment_status'] = $order->payment_status;
-            $this->formData['delivery_method'] = $order->delivery_method;
-            $this->formData['delivery_status'] = $order->delivery_status;
-            $this->formData['ttn'] = $order->ttn;
-            $this->formData['note'] = $order->note;
+            $this->data['warehouse_id'] = $order->warehouse_id;
+            $this->data['status'] = $order->status;
+            $this->data['total'] = $order->total->getAmount()->toFloat();
+            $this->data['phone'] = $order->phone->formatInternational();
+            $this->data['customer_name'] = $order->customer_name;
+            $this->data['customer_last_name'] = $order->customer_last_name;
+            $this->data['payment_method'] = $order->payment_method;
+            $this->data['payment_status'] = $order->payment_status;
+            $this->data['delivery_method'] = $order->delivery_method;
+            $this->data['delivery_status'] = $order->delivery_status;
+            $this->data['ttn'] = $order->ttn;
+            $this->data['note'] = $order->note;
 
             if ($order->delivery_method === DeliveryMethodEnum::NOVAPOSHTA) {
-                $this->selectedCity = $order->warehouse->city->id;
-                $this->selectedWarehouse = $order->warehouse_id;
+                $this->selectedCity = $order?->warehouse?->city->id ?? null;
+                $this->selectedWarehouse = $order?->warehouse_id ?? null;
             }
         }
     }
@@ -130,20 +131,20 @@ class OrderForm extends Component
     public function rules()
     {
         $rules = [
-            'formData.customer_name' => 'required|string|min:3|max:191',
-            'formData.customer_last_name' => 'required|string|min:3|max:191',
-            'formData.phone' => 'required|string|min:8|phone:UA',
-            'formData.note' => 'nullable|string|max:9999',
-            'formData.delivery_method' => [Rule::enum(DeliveryMethodEnum::class)],
-            'formData.payment_method' => [Rule::enum(PaymentMethodEnum::class)],
-            'formData.delivery_status' => [Rule::enum(DeliveryStatusEnum::class)],
-            'formData.payment_status' => [Rule::enum(PaymentStatusEnum::class)],
-            'formData.ttn' => 'nullable|string|max:17',
+            'data.customer_name' => 'required|string|min:3|max:191',
+            'data.customer_last_name' => 'required|string|min:3|max:191',
+            'data.phone' => 'required|string|min:8|phone:UA',
+            'data.note' => 'nullable|string|max:9999',
+            'data.delivery_method' => [Rule::enum(DeliveryMethodEnum::class)],
+            'data.payment_method' => [Rule::enum(PaymentMethodEnum::class)],
+            'data.delivery_status' => [Rule::enum(DeliveryStatusEnum::class)],
+            'data.payment_status' => [Rule::enum(PaymentStatusEnum::class)],
+            'data.ttn' => 'nullable|string|max:17',
         ];
 
-        if ($this->formData['delivery_method'] === DeliveryMethodEnum::NOVAPOSHTA) {
-            $rules['poshtaForm.selectedCity'] = 'required';
-            $rules['poshtaForm.selectedWarehouse'] = 'required';
+        if ($this->data['delivery_method'] === DeliveryMethodEnum::NOVAPOSHTA) {
+            $rules['selectedCity'] = ['required', 'exists:cities,id'];
+            $rules['selectedWarehouse'] = ['required', new WarehouseBelongsToCity($this->selectedCity),];
         }
 
         return $rules;
@@ -152,12 +153,12 @@ class OrderForm extends Component
     public function validationAttributes()
     {
         return [
-            'formData.customer_name' => 'Імʼя',
-            'formData.customer_last_name' => 'Прізвище',
-            'formData.phone' => 'Телефон',
-            'formData.note' => 'Примітка',
-            'formData.delivery_method' => 'Спосіб доставки',
-            'formData.payment_method' => 'Спосіб оплати',
+            'data.customer_name' => 'Імʼя',
+            'data.customer_last_name' => 'Прізвище',
+            'data.phone' => 'Телефон',
+            'data.note' => 'Примітка',
+            'data.delivery_method' => 'Спосіб доставки',
+            'data.payment_method' => 'Спосіб оплати',
         ];
     }
 
@@ -217,14 +218,14 @@ class OrderForm extends Component
 
         $validated = $this->validate();
 
-        $formData = $validated['formData'];
+        $data = $validated['data'];
 
-        if ($formData['delivery_method'] === DeliveryMethodEnum::NOVAPOSHTA) {
-            $formData['warehouse_id'] = $validated['poshtaForm']['selectedWarehouse'];
+        if ($data['delivery_method'] === DeliveryMethodEnum::NOVAPOSHTA) {
+            $data['warehouse_id'] = $validated['selectedWarehouse'];
         }
 
-        $formData['total'] = Money::of(str_replace(',', '', $this->pricesTotal()), 'UAH', roundingMode: RoundingMode::DOWN);
-        $this->order->update($formData);
+        $data['total'] = Money::of(str_replace(',', '', $this->pricesTotal()), 'UAH', roundingMode: RoundingMode::DOWN);
+        $this->order->update($data);
         $this->updateProducts();
 
         $this->dispatch('alert-open', "Замовлення {$this->order->id} оновлено");

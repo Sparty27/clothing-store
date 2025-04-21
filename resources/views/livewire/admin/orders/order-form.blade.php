@@ -3,7 +3,7 @@
         <h2 class="font-bold text-lg">Замовлення</h2>  
         <div class="">
             <div class="flex">
-                <div class="p-3 rounded-lg bg-{{ $formData['status']->colorTailwind() }}">
+                <div class="p-3 rounded-lg bg-{{ $data['status']->colorTailwind() }}">
                     {{ $order->status->label() }}
                 </div>
             </div>
@@ -12,8 +12,8 @@
                 <div class="label">
                     <span class="label-text">Примітка</span>
                 </div>
-                <textarea class="min-h-[100px] border-gray-200 border-[1px] p-3 rounded-lg break-all w-full @error('formData.note') input-error @enderror" wire:model="formData.note"></textarea>
-                @error('formData.note')
+                <textarea class="min-h-[100px] border-gray-200 border-[1px] p-3 rounded-lg break-all w-full @error('data.note') input-error @enderror" wire:model="data.note"></textarea>
+                @error('data.note')
                 <div class="text-red-500 mt-1">
                     {{ $message }}
                 </div>
@@ -31,7 +31,7 @@
                         <span class="label-text">Імʼя</span>
                     </div>
                     <div class="font-bold">
-                        {{ $formData['customer_name'] }}
+                        {{ $data['customer_name'] }}
                     </div>
                 </div>
 
@@ -40,7 +40,7 @@
                         <span class="label-text">Прізвище</span>
                     </div>
                     <div class="font-bold">
-                        {{ $formData['customer_last_name'] }}
+                        {{ $data['customer_last_name'] }}
                     </div>
                 </div>
 
@@ -49,7 +49,7 @@
                         <span class="label-text">Номер телефона</span>
                     </div>
                     <div class="font-bold">
-                        {{ $formData['phone'] }}
+                        {{ $data['phone'] }}
                     </div>
                 </div>
 
@@ -61,19 +61,19 @@
             <div x-show="isEditing" class="flex gap-4">
                 @include('livewire.admin.form.input', [
                     'name' => 'Імʼя',
-                    'model' => 'formData.customer_name',
+                    'model' => 'data.customer_name',
                     'placeholder' => 'Введіть імʼя замовника',
                 ])
         
                 @include('livewire.admin.form.input', [
                     'name' => 'Прізвище',
-                    'model' => 'formData.customer_last_name',
+                    'model' => 'data.customer_last_name',
                     'placeholder' => 'Введіть прізвище замовника',
                 ])
         
                 @include('livewire.admin.form.input', [
                     'name' => 'Номер телефона',
-                    'model' => 'formData.phone',
+                    'model' => 'data.phone',
                     'placeholder' => 'Введіть номер замовника',
                 ])
             </div>
@@ -89,7 +89,7 @@
                     'options' => App\Enums\PaymentMethodEnum::cases(),
                     'disabled' => true,
                     'live' => true,
-                    'model' => 'formData.payment_method',
+                    'model' => 'data.payment_method',
                     'placeholder' => 'Виберіть статус',
                 ])
             </div>
@@ -99,9 +99,9 @@
                     'options' => App\Enums\PaymentStatusEnum::cases(),
                     'disabled' => true,
                     'live' => true,
-                    'model' => 'formData.payment_status',
+                    'model' => 'data.payment_status',
                     'placeholder' => 'Виберіть статус',
-                    'class' => 'bg-'.$formData['payment_status']->colorTailwind(),
+                    'class' => 'bg-'.$data['payment_status']->colorTailwind(),
                 ])
             </div>
         </div>
@@ -119,7 +119,7 @@
                     'options' => App\Enums\DeliveryMethodEnum::cases(),
                     'disabled' => true,
                     'live' => true,
-                    'model' => 'formData.delivery_method',
+                    'model' => 'data.delivery_method',
                     'placeholder' => 'Виберіть статус',
                 ])
             </div>
@@ -129,66 +129,61 @@
                     'options' => App\Enums\DeliveryStatusEnum::cases(),
                     'disabled' => true,
                     'live' => true,
-                    'model' => 'formData.delivery_status',
+                    'model' => 'data.delivery_status',
                     'placeholder' => 'Виберіть статус',
-                    'class' => 'bg-'.$formData['delivery_status']->colorTailwind(),
+                    'class' => 'bg-'.$data['delivery_status']->colorTailwind(),
                 ])
             </div>
         </div>
 
-        @if($formData['delivery_method'] === App\Enums\DeliveryMethodEnum::NOVAPOSHTA)
+        @if($data['delivery_method'] === App\Enums\DeliveryMethodEnum::NOVAPOSHTA)
             <label class="form-control max-w-[250px]">
                 <div class="label">
                     <span class="label-text">ТТН</span>
                 </div>
-                <input x-mask="99 9999 9999 9999" type="text" placeholder="Введіть ТТН" wire:model="formData.ttn" class="input input-bordered w-full text-lg @error('formData.ttn') input-error @enderror" />
-                @error('formData.ttn')
+                <input x-mask="99 9999 9999 9999" type="text" placeholder="Введіть ТТН" wire:model="data.ttn" class="input input-bordered w-full text-lg @error('data.ttn') input-error @enderror" />
+                @error('data.ttn')
                 <div class="text-red-500 mt-1">
                     {{ $message }}
                 </div>
                 @enderror
             </label>
             
-            <div class="flex gap-4">
-                <div class="form-control w-full mt-3">
-                    <label for="searchCities" class="">
-                        <i class="ri-building-line"></i>
-                        <span class="text-md text">Населений пункт</span>
-                    </label>
-                
-                    <div wire:key="searchCities">
-                        <div wire:ignore class="w-full h-full">
-                            <select style="width: 100%; height: 100%" id="searchCities" x-data="select2($el, $wire, 'selectedCity', '/api/novaposhta/cities')" ></select>
-                        </div>
-            
-                        @error($selectedCity)
-                            <div class="text-red-500 mt-1">
-                                {{ $message }}
-                            </div>
-                        @enderror
+            <div class="flex gap-4 flex-wrap">
+                <label class="form-control max-w-[300px] w-full">
+                    <div class="label">
+                        <span class="label-text">Місто</span>
                     </div>
-                </div>
+                    
+                    @include('livewire.admin.form.select2', [
+                        'wireModel' => 'selectedCity',
+                        'key' => 'city-selector',
+                        'url' => '/api/novaposhta/cities',
+                        'passedData' => [
+                            'placeholder' => 'Виберіть місто',
+                            'not_found' => 'Нічого не знайдено'
+                        ]
+                    ])
+                </label>
+                
+                <label class="form-control max-w-[300px] w-full">
+                    <div class="label">
+                        <span class="label-text">Відділення</span>
+                    </div>
 
-                <div class="form-control w-full mt-3">
-                    <label for="searchWarehouses" class="">
-                        <i class="ri-box-3-line"></i>
-                        <span class="text-md text">Відділення Нової Пошти</span>
-                    </label>
-                
-                    <div wire:key="searchWarehouses">
-                        <div wire:ignore class="w-full h-full">
-                            <select style="width: 100%; height: 100%" id="searchWarehouses" x-data="select2($el, $wire, 'selectedWarehouse', '/api/novaposhta/warehouses', @js(['selectedCity' => 'selectedCity', 'relatedOnly' => true]))"></select>
-                        </div>
-            
-                        @error($selectedWarehouse)
-                            <div class="text-red-500 mt-1">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                </div>
+                    @include('livewire.admin.form.select2', [
+                        'wireModel' => 'selectedWarehouse',
+                        'key' => 'warehouse-selector',
+                        'url' => '/api/novaposhta/warehouses',
+                        'passedData' => [
+                            'placeholder' => 'Виберіть відділення',
+                            'selectedCity' => 'novaposhtaForm.selectedCity',
+                            'relatedOnly' => true,
+                            'not_found' => 'Нічого не знайдено'
+                        ]
+                    ])
+                </label>
             </div>
-
         @endif
     </div>
 

@@ -9,20 +9,30 @@ use Illuminate\Http\Request;
 
 class NovaPoshtaController extends Controller
 {
-    public function cities(Request $request)
+    public function cities(Request $request, ?City $city)
     {
-        $searchTerm = $request->input('q'); // Отримуємо пошуковий термін з Select2
+        if ($city->exists) {
+            return response()->json($city);
+        }
+
+        $searchTerm = $request->input('q');
+        $limit = $request->input('limit', 10);
 
         $cities = City::when($searchTerm, function ($query, $searchTerm) {
             return $query->search($searchTerm);
-        })->limit(10)->get();
+        })->limit($limit)->get();
 
         return response()->json($cities);
     }
 
-    public function warehouses(Request $request)
+    public function warehouses(Request $request, ?Warehouse $warehouse)
     {
+        if ($warehouse->exists) {
+            return response()->json($warehouse);
+        }
+
         $searchTerm = $request->input('q');
+        $limit = $request->input('limit', 10);
 
         $relatedOnly = $request->query('relatedOnly');
 
@@ -38,7 +48,7 @@ class NovaPoshtaController extends Controller
 
         $warehouses = $builder->when($searchTerm, function ($query, $searchTerm) {
             return $query->search($searchTerm);
-        })->limit(10)->get();
+        })->limit($limit)->get();
 
         return response()->json($warehouses);
     }

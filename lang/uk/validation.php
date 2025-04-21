@@ -171,6 +171,7 @@ return [
     */
 
     'phone' => 'Поле :attribute повинно бути дійсним номером.',
+    'city_dependency' => 'Поле :attribute повинно належити вибраному населеному пункту.',
 
     'custom' => [
         'attribute-name' => [
@@ -243,8 +244,8 @@ return [
         'data.is_discount' => 'Акційний',
         'data.old_password' => 'Старий пароль',
         'data.new_password' => 'Новий пароль',
-        'data.poshta_form.selected_city' => 'Місто',
-        'data.poshta_form.selected_warehouse' => 'Відділення',
+        'data.selected_city' => 'Місто',
+        'data.selected_warehouse' => 'Відділення',
         'data.short_description' => 'Короткий опис',
         'data.category_id' => 'Категорія'
     ],
