@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
  * Class Product
- * 
+ *
  * @property Money $price
  * @property Money $old_price
  */
@@ -55,7 +55,7 @@ class Product extends Model implements Photoable
     ];
 
     public $translatedAttributes = ['name', 'description', 'short_description'];
-    
+
     public function photos(): MorphMany
     {
         return $this->morphMany(Photo::class, 'photoable');
@@ -134,10 +134,10 @@ class Product extends Model implements Photoable
 
         return $query
             ->where('name', 'LIKE', '%' . $value . '%')
-            ->orderByRaw("CASE 
+            ->orderByRaw("CASE
                 WHEN name LIKE ? THEN 1
                 WHEN name LIKE ? THEN 2
-                ELSE 3 
+                ELSE 3
             END", [$value . '%', '%' . $value . '%']);
     }
 
@@ -169,7 +169,7 @@ class Product extends Model implements Photoable
         $sort = explode('_', $sort->value);
         $sortCol = $sort[0];
         $sortDir = $sort[1];
-        
+
         return $query->orderBy($sortCol, $sortDir);
     }
 
@@ -185,12 +185,12 @@ class Product extends Model implements Photoable
 
                 if (is_int($value)) {
                     $value = BigInteger::of($value);
-                } 
-                
+                }
+
                 if ($value < $price) {
                     return $this->price;
                 }
-        
+
                 return Money::ofMinor($value, 'UAH');
             },
         );
@@ -212,6 +212,20 @@ class Product extends Model implements Photoable
         return Attribute::make(
             get: function ($value) {
                 return number_format($this->price->getAmount()->toFloat(), 2, '.', '');
+            },
+        );
+    }
+
+    protected function allCount(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                $count = 0;
+                foreach ($this->productSizes as $productSize) {
+                    $count += $productSize->count;
+                }
+
+                return $count;
             },
         );
     }

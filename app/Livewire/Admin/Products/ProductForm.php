@@ -19,11 +19,11 @@ use Livewire\Features\SupportFileUploads\WithFileUploads;
 class ProductForm extends Component
 {
     use QuillEditorImageUpload, WithFileUploads;
-    
+
     public $product;
     public Gallery $gallery;
     public $isCreated = false;
-    
+
     public array $initialCounts = [];
     public array $addSizes = [];
     public $data = [];
@@ -137,8 +137,8 @@ class ProductForm extends Component
             'data.short_description' => 'nullable|string|max:5000',
             'data.category_id' => 'required|exists:categories,id',
             // 'data.count' => 'required|integer|min:0|max:999999',
-            'data.price' => 'required_with:data.old_price|numeric|regex:/^\d+(\.\d{1,2})?$/|min:1',
-            'data.old_price' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/|min:0',
+            'data.price' => 'required_with:data.old_price|numeric|regex:/^\d+(\.\d{1,2})?$/|min:1|max:1000000',
+            'data.old_price' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/|min:0|max:1000000',
             'data.is_discount' => 'required|boolean',
             // 'data.isDayProduct' => 'required|boolean',
             'data.is_active' => 'required|boolean',
@@ -149,7 +149,7 @@ class ProductForm extends Component
         ];
 
         if ($this->data['is_discount'] === true) {
-            $rules['data.old_price'] = 'required|numeric|regex:/^\d+(\.\d{1,2})?$/|min:0|gt:data.price';
+            $rules['data.old_price'] = 'required|numeric|regex:/^\d+(\.\d{1,2})?$/|min:0|max:1000000|gt:data.price';
         }
 
         return $rules;
@@ -192,7 +192,7 @@ class ProductForm extends Component
             // $validated['count'] = $this->product->count + ((int)$validated['count'] - (int)$this->initialCount);
 
             $validatedAddSizes = $this->checkCounts($validatedAddSizes);
-            
+
             $this->product->update($validated);
         }
 
@@ -224,16 +224,35 @@ class ProductForm extends Component
 
     private function saveSizes(array $sizes, Product $product)
     {
-        ProductSize::where('product_id', $product->id)->delete();
-    
+        $sizeIds = collect($sizes)->pluck('size_id')->all();
+
+        // Позначаємо як видалені ті розміри, яких немає у новому списку
+        ProductSize::where('product_id', $product->id)
+            ->whereNotIn('size_id', $sizeIds)
+            ->delete();
+
         foreach ($sizes as $size) {
-            ProductSize::updateOrCreate([
-                'size_id' => $size['size_id'],
-                'count' => $size['count'],
-                'product_id' => $product->id,
-            ]);
+            $productSize = ProductSize::withTrashed()
+                ->where('product_id', $product->id)
+                ->where('size_id', $size['size_id'])
+                ->first();
+
+            if ($productSize) {
+                $productSize->count = $size['count'];
+                if ($productSize->trashed()) {
+                    $productSize->restore();
+                }
+                $productSize->save();
+            } else {
+                ProductSize::create([
+                    'product_id' => $product->id,
+                    'size_id' => $size['size_id'],
+                    'count' => $size['count'],
+                ]);
+            }
         }
     }
+
 
     public function render()
     {

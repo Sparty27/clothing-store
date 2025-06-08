@@ -24,7 +24,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach ($this->products as $product)    
+        @foreach ($this->products as $product)
             <tr wire:key="{{ $product->id }}" class="{{ $product->is_active ? 'bg-pastelGreenLight' : 'bg-pastelRedLight' }}">
                 <th>{{ $product->id }}</th>
                 <td class="p-0.5">
@@ -38,7 +38,7 @@
                 <td class="break-all min-w-[120px]">{{ $product->slug }}</td>
                 <td class="break-all">{{ $product->article }}</td>
                 <td>{{ $product->category?->name }}</td>
-                <td>{{ $product->count }}</td>
+                <td>{{ $product->all_count }}</td>
                 <td>
                     <div class="flex justify-end">
                         {{ $product->money_price }} ₴
@@ -51,25 +51,25 @@
                 </td>
                 <td>
                     <div wire:key="product-{{ $product->id }}-active-{{ $product->is_active }}">
-                        <input type="checkbox" class="toggle" @if($product->is_active) checked @endif 
-                            wire:click.prevent="$dispatch('openModal', { 
-                                component: 'admin.modals.warning-modal', 
-                                arguments: { 
-                                    dispatch: 'toggle-product-active', 
-                                    modelId: {{ $product->id }} 
-                                } 
+                        <input type="checkbox" class="toggle" @if($product->is_active) checked @endif
+                            wire:click.prevent="$dispatch('openModal', {
+                                component: 'admin.modals.warning-modal',
+                                arguments: {
+                                    dispatch: 'toggle-product-active',
+                                    modelId: {{ $product->id }}
+                                }
                             })"/>
                     </div>
                 </td>
                 <td>
                     <div wire:key="product-{{ $product->id }}-popular-{{ $product->is_popular }}">
-                        <input type="checkbox" class="toggle" @if($product->is_popular) checked @endif 
-                            wire:click.prevent="$dispatch('openModal', { 
-                                component: 'admin.modals.warning-modal', 
-                                arguments: { 
-                                    dispatch: 'toggle-product-popular', 
-                                    modelId: {{ $product->id }} 
-                                } 
+                        <input type="checkbox" class="toggle" @if($product->is_popular) checked @endif
+                            wire:click.prevent="$dispatch('openModal', {
+                                component: 'admin.modals.warning-modal',
+                                arguments: {
+                                    dispatch: 'toggle-product-popular',
+                                    modelId: {{ $product->id }}
+                                }
                             })"/>
                     </div>
                 </td>
@@ -79,15 +79,15 @@
                             <i class="ri-pencil-line"></i>
                         </a>
 
-                        <button class="btn btn-sm btn-error" 
-                            wire:click="$dispatch('openModal', { 
-                                component: 'admin.modals.delete-modal', 
-                                arguments: { 
-                                    subject: 'Видалити товар?', 
-                                    text: 'Ця дія безворотня, ви дійсно бажаєте продовжити?', 
-                                    dispatch: 'delete-product', 
-                                    modelId: {{ $product->id }} 
-                                } 
+                        <button class="btn btn-sm btn-error"
+                            wire:click="$dispatch('openModal', {
+                                component: 'admin.modals.delete-modal',
+                                arguments: {
+                                    subject: 'Видалити товар?',
+                                    text: 'Ця дія безворотня, ви дійсно бажаєте продовжити?',
+                                    dispatch: 'delete-product',
+                                    modelId: {{ $product->id }}
+                                }
                             })">
 
                             <i class="ri-delete-bin-line text-white"></i>

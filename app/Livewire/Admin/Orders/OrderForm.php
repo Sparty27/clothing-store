@@ -37,9 +37,9 @@ class OrderForm extends Component
 
         if ($order) {
 
-            if ($order->status !== OrderStatusEnum::PROCESS) {
-                return redirect()->route('admin.orders.index')->with('alert', 'Редагування можливе тільки для замовлень в обробці');
-            }
+            // if ($order->status !== OrderStatusEnum::PROCESS) {
+            //     return redirect()->route('admin.orders.index')->with('alert', 'Редагування можливе тільки для замовлень в обробці');
+            // }
 
             $this->data['warehouse_id'] = $order->warehouse_id;
             $this->data['status'] = $order->status;
@@ -72,14 +72,14 @@ class OrderForm extends Component
     {
         try {
             $total = 0;
-    
+
             foreach ($this->orderProducts as $orderProduct) {
                 $total += Money::of($this->prices[$orderProduct->id], 'UAH', roundingMode: RoundingMode::DOWN)
                     ->multipliedBy($this->quantities[$orderProduct->id])
                     ->getAmount()
                     ->toFloat();
             }
-    
+
             return number_format($total, 2);
         } catch (Exception $e) {
             return 'Помилка';
@@ -124,7 +124,7 @@ class OrderForm extends Component
             case 'price':
                 $this->prices[$orderProduct->id] = number_format($orderProduct->price->getAmount()->toFloat(), 2, '.', '');
                 break;
-            
+
         }
     }
 
@@ -179,7 +179,7 @@ class OrderForm extends Component
             } catch (\Illuminate\Validation\ValidationException $e) {
                 $this->setErrorBag($e->validator->errors());
             }
-    
+
             try {
                 $this->validateOnly("prices.$key", [
                     "prices.$key" => "required|numeric|regex:/^\d+(\.\d{1,2})?$/|min:1",
@@ -230,7 +230,7 @@ class OrderForm extends Component
 
         $this->dispatch('alert-open', "Замовлення {$this->order->id} оновлено");
     }
-    
+
     public function render()
     {
         return view('livewire.admin.orders.order-form');

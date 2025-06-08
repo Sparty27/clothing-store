@@ -67,7 +67,7 @@ class Catalog extends Component
     #[Computed]
     public function productsMinMax()
     {
-        return Cache::remember("categories-min-max-".$this->category?->id ?? 'all', 10, function () { 
+        return Cache::remember("categories-min-max-".$this->category?->id ?? 'all', 10, function () {
             return $this->getProducts()->selectRaw("MIN(price) as min_price, MAX(price) as max_price")->first();
         });
     }
@@ -98,7 +98,7 @@ class Catalog extends Component
     #[Computed()]
     public function products()
     {
-        $this->selectPrices();
+        // $this->selectPrices();
 
         $selectedSort = SortProduct::tryFrom($this->selectedSort);
 
@@ -107,7 +107,7 @@ class Catalog extends Component
             ->select('products.*', DB::raw('SUM(product_size.count) as total_count'))
             ->groupBy('products.id')
             ->orderByRaw("(CASE WHEN total_count > 0 THEN 1 ELSE 0 END) DESC")
-            ->when($this->selectedSizes, function ($builder, $value) { 
+            ->when($this->selectedSizes, function ($builder, $value) {
                 $builder->filterBySizes($value);
             })
             ->when($this->minPrice, function ($builder, $value) {
@@ -116,8 +116,8 @@ class Catalog extends Component
             ->when($this->maxPrice, function ($builder, $value) {
                 $builder->where('price', '<=', Money::of($value, 'UAH', roundingMode: RoundingMode::DOWN)->getMinorAmount()->toInt());
             })
-            ->when($selectedSort, function ($builder, $value) { 
-                $builder->sort($value); 
+            ->when($selectedSort, function ($builder, $value) {
+                $builder->sort($value);
             })
             ->with('mainPhoto')
             ->paginate(12);
@@ -170,6 +170,8 @@ class Catalog extends Component
                 'maxPrice' => 'required|numeric|min:0|max:9999999|gte:minPrice'
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
+            $this->minPrice = 0;
+            $this->maxPrice = 0;
             $this->resetErrorBag(); // Очищає попередні помилки
             $this->addError('minPrice', $e->validator->errors()->first('minPrice'));
             $this->addError('maxPrice', $e->validator->errors()->first('maxPrice'));

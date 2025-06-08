@@ -247,6 +247,7 @@ return [
         'data.selected_city' => 'Місто',
         'data.selected_warehouse' => 'Відділення',
         'data.short_description' => 'Короткий опис',
-        'data.category_id' => 'Категорія'
+        'data.category_id' => 'Категорія',
+        'addSizes' => 'Розміри товару'
     ],
 ];

@@ -58,12 +58,12 @@
                     'name' => 'Активний',
                     'model' => 'data.is_active',
                 ])
-    
+
                 {{-- @include('livewire.admin.form.checkbox', [
                     'name' => 'Товар дня',
                     'model' => 'data.is_day_product',
                 ]) --}}
-        
+
                 @include('livewire.admin.form.checkbox', [
                     'name' => 'Популярний',
                     'model' => 'data.is_popular',
@@ -88,14 +88,14 @@
                         </div>
                         @enderror
                     </div>
-        
+
                     <div class="flex gap-3 w-full">
                         {{-- @include('livewire.admin.form.input', [
                             'name' => 'Кількість',
                             'model' => 'data.count',
                             'type' => 'number',
                         ]) --}}
-        
+
                         @include('livewire.admin.form.input', [
                             'name' => 'Ціна',
                             'model' => 'data.price',
@@ -117,7 +117,7 @@
                 </div>
                 @enderror
             </label>
-        
+
             @if($data['is_discount'])
                 @include('livewire.admin.form.input', [
                     'name' => 'Стара Ціна',
@@ -192,6 +192,12 @@
                     <i class="ri-add-circle-line ri-xl text-white"></i>
                 </button>
             </div>
+
+            @error('addSizes')
+                <div class="text-red-500 mt-1">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
 
         {{-- @foreach ($selectedSizes as $index => $selectedSize)
@@ -233,7 +239,7 @@
                     </div>
                 </li>
             @endforeach
-    
+
             <div class="cursor-pointer">
                 <button type="button" class="btn px-3 rounded-full" onclick="document.getElementById('photo-input').click()">
                     <i class="ri-add-circle-line text-2xl"></i>
@@ -254,33 +260,3 @@
         </button>
     </div>
 </form>
-
-@push('scripts')
-    <script>
-        $(document).ready(function () {
-            $('#FirstOption').select2({
-                placeholder: 'Select an option',
-            });
-
-            $(document).on('change', '#FirstOption', function (e) {
-                @this.set('foo', e.target.value);
-            });
-
-            $(document).on('change', '#SecondOption', function (e) {
-                @this.set('second', e.target.value);
-            });
-
-            $(document).on('change', '#ThirdOption', function (e) {
-                @this.set('third', e.target.value);
-            });
-
-        });
-        document.addEventListener("livewire:load", function (event) {
-            window.livewire.hook('afterDomUpdate', () => {
-                $('#FirstOption, #SecondOption, #ThirdOption').select2({
-                    placeholder: 'Select an option',
-                });
-            });
-        });
-    </script>
-@endpush

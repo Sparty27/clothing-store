@@ -10,17 +10,15 @@ Alpine.data('select2', (el, wire, wireModel, url, passedData) => {
                 let requestData = {
                     q: params.term,
                 };
-    
+
                 if (passedData && passedData['selectedCity']) {
-                    console.log('test' + passedData['selectedCity']);
                     requestData.city = wire.get(passedData['selectedCity']);
-                    console.log('test' + requestData.city);
                 }
-    
+
                 if (passedData && passedData['relatedOnly']) {
                     requestData.relatedOnly = passedData['relatedOnly'];
                 }
-    
+
                 return requestData;
             },
             processResults: function (data) {
@@ -66,7 +64,7 @@ Alpine.data('select2', (el, wire, wireModel, url, passedData) => {
     });
 });
 
-Alpine.data('select2', (el, wire, wireModel) => {
+Alpine.data('select2simple', (el, wire, wireModel) => {
     $(el).select2();
 
     $(el).on('change', function (e) {
