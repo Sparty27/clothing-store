@@ -78,7 +78,7 @@
 <body>
     <div class="container">
         <div style="text-align: center;">
-            <img src="https://nyshchyi-nazar.pp.ua/img/svg/logo.svg" alt="Dressiety Logo" width="150">
+            <img src="https://nyshchyi-nazar.pp.ua/img/logo.png" alt="Dressiety Logo" width="150">
         </div>
 
         <h2 style="text-align: center;">
