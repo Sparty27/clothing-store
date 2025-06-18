@@ -96,32 +96,57 @@ class Catalog extends Component
     }
 
     #[Computed()]
-    public function products()
-    {
-        // $this->selectPrices();
+public function products()
+{
+    $selectedSort = SortProduct::tryFrom($this->selectedSort);
 
-        $selectedSort = SortProduct::tryFrom($this->selectedSort);
-
-        return Product::searchByCategory($this->category)
-            ->join('product_size', 'products.id', '=', 'product_size.product_id')
-            ->select('products.*', DB::raw('SUM(product_size.count) as total_count'))
-            ->groupBy('products.id')
-            ->orderByRaw("(CASE WHEN total_count > 0 THEN 1 ELSE 0 END) DESC")
-            ->when($this->selectedSizes, function ($builder, $value) {
-                $builder->filterBySizes($value);
-            })
-            ->when($this->minPrice, function ($builder, $value) {
-                $builder->where('price', '>=', Money::of($value, 'UAH', roundingMode: RoundingMode::DOWN)->getMinorAmount()->toInt());
-            })
-            ->when($this->maxPrice, function ($builder, $value) {
-                $builder->where('price', '<=', Money::of($value, 'UAH', roundingMode: RoundingMode::DOWN)->getMinorAmount()->toInt());
-            })
-            ->when($selectedSort, function ($builder, $value) {
-                $builder->sort($value);
-            })
-            ->with('mainPhoto')
-            ->paginate(12);
-    }
+    return Product::searchByCategory($this->category)
+        ->join('product_size', 'products.id', '=', 'product_size.product_id')
+        ->select(
+            'products.id',
+            'products.category_id',
+            'products.name',
+            'products.slug',
+            'products.article',
+            'products.description',
+            'products.short_description',
+            'products.price',
+            'products.old_price',
+            'products.is_discount',
+            'products.is_active',
+            'products.is_popular',
+            DB::raw('SUM(product_size.count) as total_count')
+        )
+        ->groupBy(
+            'products.id',
+            'products.category_id',
+            'products.name',
+            'products.slug',
+            'products.article',
+            'products.description',
+            'products.short_description',
+            'products.price',
+            'products.old_price',
+            'products.is_discount',
+            'products.is_active',
+            'products.is_popular'
+        )
+        ->orderByRaw("(CASE WHEN SUM(product_size.count) > 0 THEN 1 ELSE 0 END) DESC")
+        ->when($this->selectedSizes, function ($builder, $value) {
+            $builder->filterBySizes($value);
+        })
+        ->when($this->minPrice, function ($builder, $value) {
+            $builder->where('price', '>=', Money::of($value, 'UAH', roundingMode: RoundingMode::DOWN)->getMinorAmount()->toInt());
+        })
+        ->when($this->maxPrice, function ($builder, $value) {
+            $builder->where('price', '<=', Money::of($value, 'UAH', roundingMode: RoundingMode::DOWN)->getMinorAmount()->toInt());
+        })
+        ->when($selectedSort, function ($builder, $value) {
+            $builder->sort($value);
+        })
+        ->with('mainPhoto')
+        ->paginate(12);
+}
 
     #[On('updated-basket')]
     public function isInBasket(Product $product)
